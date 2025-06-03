@@ -8,7 +8,7 @@
     <div class="mx-40 my-10">
         <div class="grid grid-cols-2 gap-15">
             <article>
-                <h2 class="text-2xl font-semibold text-indigo-900">LPK EKSELEN</h2>
+                <h2 class="text-3xl font-bold text-indigo-900">LPK EKSELEN</h2>
                 <hr class="border-2 border-green-600">
                 <p class="pt-5 text-justify text-gray-600">
                 Bimbingan belajar(Bimbel) adalah sebuah kebutuhan yang penting di masa sekarang. Materi pelajaran yang relatif sulit dan tuntutan dari sekolah untuk mencapai standar nilai minimal(KKM) membuat para siswa perlu mendapatkan bimbingan/les diluar jam sekolah.
@@ -21,14 +21,14 @@
 
         <div class="pt-10 grid grid-cols-3 gap-15">
             <article>
-                <h2 class="text-2xl font-semibold text-indigo-900">VISI</h2>
+                <h2 class="text-3xl font-bold text-indigo-900">VISI</h2>
                 <hr class="border-2 border-green-600">
                 <p class="pt-5 text-gray-600 text-justify">
                     Meningkatkan bakat, minat, skill, serta menghadapi tantangan global dengan membaca dan menelaah setiap kesempatan dan peluang yang ada.
                 </p>
             </article>
             <article>
-                <h2 class="text-2xl font-semibold text-indigo-900">MISI</h2>
+                <h2 class="text-3xl font-bold text-indigo-900">MISI</h2>
                 <hr class="border-2 border-green-600">
                 <ol class="pt-5 text-gray-600 list-decimal text-justify">
                     <li>Mengabdikan diri pada masyarakat untuk melayani kebutuhan belajar/keterampilan masyarakat di bidang bahasa asing dan bidang teknologi informasi.</li>
@@ -38,7 +38,7 @@
                 </ol>
             </article>
             <article>
-                <h2 class="text-2xl font-semibold text-indigo-900">TUJUAN</h2>
+                <h2 class="text-3xl font-bold text-indigo-900">TUJUAN</h2>
                 <hr class="border-2 border-green-600">
                 <ol class="pt-5 text-gray-600 list-decimal text-justify">
                     <li>Membuatnya progress dan terobosan bagi para siswa sesuai dengan kebutuhan dalam menyongsong persaingan global yang sedang kita hadapi.</li>
@@ -47,6 +47,31 @@
                     </li>
                 </ol>
             </article>
+        </div>
+
+        <p class="font-semibold text-indigo-900">Manajemen</p>
+        <hr class="border-2 border-red-700 w-21">
+        <h2 class="text-3xl font-bold text-indigo-900">Staff dan Guru</h2>
+
+        <div class="grid grid-cols-3 gap-5 my-10 justify-item-stretch">
+            <div class="text-center w-[380px]">
+                <img src="images/jas.jpg" alt="Deskripsi gambar" class="w-full h-auto"/>
+                <p class="text-sm bg-gray-300 py-1">
+                    Sir Robert
+                </p>
+            </div>
+            <div class="text-center w-[380px]">
+                <img src="images/jas.jpg" alt="Deskripsi gambar" class="w-full h-auto"/>
+                <p class="text-sm bg-gray-300 py-1">
+                    Sir Robert
+                </p>
+            </div>
+            <div class="text-center w-[380px]">
+                <img src="images/jas.jpg" alt="Deskripsi gambar" class="w-full h-auto"/>
+                <p class="text-sm bg-gray-300 py-1">
+                    Sir Robert
+                </p>
+            </div>
         </div>
     </div>
 

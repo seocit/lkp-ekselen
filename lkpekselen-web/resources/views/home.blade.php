@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <div class="px-10 py-24 text-center bg-green-50 md:px-64">
+    <div class="px-10 py-24 text-center bg-green-50 md:px-64" id="kursus">
         <p class="text-2xl font-medium text-indigo-900">KURSUS</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl px-4 pt-6">
 

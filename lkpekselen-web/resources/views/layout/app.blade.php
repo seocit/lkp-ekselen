@@ -33,9 +33,44 @@
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                 <a href="{{ route('home')}}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">HOME</a>
                 <a href="{{ route('about')}}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">ABOUT</a>
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">KURSUS</a>
+                <a href="{{ route('home')}}#kursus" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">KURSUS</a>
                 <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">GALERI</a>
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">PENDAFTARAN</a>
+                <a href="#">
+                  <li class="relative list-none">
+                      <button id="dropdownPendaftaranButton" type="button"
+                        class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">
+                        PENDAFTARAN
+                  </button>
+
+  <!-- Dropdown menu -->
+  <div id="dropdownPendaftaranMenu"
+    class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10">
+    <a href="{{ route('mipa')}}"
+      class="block rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">MIPA</a>
+    <a href="{{ route('bing')}}"
+      class="block rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">English</a>
+    <a href="{{ route('komputer')}}"
+      class="block rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Komputer</a>
+  </div>
+</li>
+
+<!-- JavaScript -->
+<script>
+  const btn = document.getElementById('dropdownPendaftaranButton');
+  const menu = document.getElementById('dropdownPendaftaranMenu');
+
+  btn.addEventListener('click', function () {
+    menu.classList.toggle('hidden');
+  });
+
+  // Tutup dropdown jika klik di luar
+  window.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !menu.contains(e.target)) {
+      menu.classList.add('hidden');
+    }
+  });
+</script>
+                </a>
               </div>
             </div>
           <div class="hidden md:block">
