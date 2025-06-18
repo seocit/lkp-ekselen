@@ -39,6 +39,7 @@
                 <label for="program" class="block text-gray-700 text-sm mb-1">Program</label>
                 <select id="program" name="program" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <option value="">-- Select Program --</option>
+                    <option value="English">English</option>
                     <option value="MIPA">MIPA</option>
                     <option value="Kursus Komputer">Kursus Komputer</option>
                     <option value="TOEFL">TOEFL</option>
@@ -95,6 +96,9 @@
 
 <script>
     const programOptions = {
+        "English": [
+            "Primary", "Elementary", "Intermediate", "Advance", "Conversation Class", "Private Class"
+        ],
         "MIPA": [
             "Kelas 3 SD", "Kelas 4 SD", "Kelas 5 SD", "Kelas 6 SD",
             "Kelas 7 SMP", "Kelas 8 SMP", "Kelas 9 SMP", "Kelas Privat"

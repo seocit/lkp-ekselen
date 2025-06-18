@@ -13,8 +13,11 @@
         <h1 class="text-xl font-semibold">Tambah materi</h1>
     </div>
 
-    <form action="#" method="POST" enctype="multipart/form-data" class="space-y-4">
+    <form action="{{ route('materi.store')}}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
+
+        <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
+
         <div>
             <input
                 type="text"
@@ -23,6 +26,9 @@
                 class="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
                 required
             />
+            @error('nama_materi')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
         <div>
             <input
@@ -32,6 +38,9 @@
                 class="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
                 required
             />
+            @error('deskripsi')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
         <div>
             <textarea

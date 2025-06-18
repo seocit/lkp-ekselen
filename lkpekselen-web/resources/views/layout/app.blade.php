@@ -34,7 +34,7 @@
                 <a href="{{ route('home')}}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">HOME</a>
                 <a href="{{ route('about')}}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">ABOUT</a>
                 <a href="{{ route('home')}}#kursus" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">KURSUS</a>
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">GALERI</a>
+                <a href="{{ route('home')}}#galeri" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">GALERI</a>
                 <a href="#">
                   <li class="relative list-none">
                       <button id="dropdownPendaftaranButton" type="button"

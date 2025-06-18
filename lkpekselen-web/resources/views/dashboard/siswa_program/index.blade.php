@@ -10,10 +10,13 @@
         </a>
         <h1 class="text-lg font-semibold mb-4">Data siswa Program A</h1>
         <ul class="space-y-3">
-            <li>
-                <a href="{{ route('profile siswa')}}" class="flex justify-between items-center border border-gray-300 rounded-lg px-4 py-3 hover:bg-gray-100 transition">
+            @foreach ($data_siswa as $item)
+                <li>
+                <a href="{{ route('siswa_program.show')}}" class="flex justify-between items-center border border-gray-300 rounded-lg px-4 py-3 hover:bg-gray-100 transition">
                     <div>
-                        <p class="font-semibold text-gray-800">Nama</p>
+                        <p class="font-semibold text-gray-800">{{ $item->nama_siswa}}</p>
+                        <pre>{{ get_class($item) }}</pre>
+                        <pre>{{ route('siswa_program.show', ['siswa' => $item])}}</pre>
                         <p class="text-gray-500 text-sm">Kelas A</p>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -21,6 +24,7 @@
                     </svg>
                 </a>
             </li>
+            @endforeach
         </ul>
     </div>
 @endsection

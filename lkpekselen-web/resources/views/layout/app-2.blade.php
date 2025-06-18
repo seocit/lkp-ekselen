@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@yield('title', 'My App 2')</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite('resources/css/app.css')
 </head>
 <body class="h-full flex flex-col">
@@ -38,6 +39,10 @@
                 <a href="{{ route('siswa') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
                     <span>Siswa</span>
+                </a>
+                <a href="{{ route('bukti pembayaran') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
+                    <span>Bukti Pembayaran Siswa</span>
                 </a>
             </nav>
         </aside>

@@ -13,14 +13,26 @@
         <h1 class="text-xl font-semibold">Pengumuman</h1>
     </div>
 
-    <form action="#" method="POST" class="space-y-4">
+    @if ($errors->any())
+        <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+            <ul class="list-dics pl-5">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $errors}}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('pengumuman.update', $pengumuman->id)}}" method="POST" class="space-y-4">
         @csrf
+        @method('PUT')
         <div>
             <input
                 type="text"
                 name="judul"
                 placeholder="Judul ..."
                 class="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                value="{{ old('judul', $pengumuman->judul)}}"
                 required
             />
         </div>
@@ -31,7 +43,7 @@
                 placeholder="Isi ..."
                 class="w-full rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none"
                 required
-            ></textarea>
+            >{{ old('isi', $pengumuman->isi)}}</textarea>
         </div>
         <div class="text-right">
             <button

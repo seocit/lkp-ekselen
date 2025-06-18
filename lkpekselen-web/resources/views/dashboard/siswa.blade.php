@@ -7,10 +7,11 @@
         <canvas id="siswaChart" class="w-full h-64"></canvas>
 
         <ul class="space-y-3">
-            <li>
-                <a href="{{ route('siswa program')}}" class="flex justify-between items-center border border-gray-300 rounded-lg px-4 py-3 hover:bg-gray-100 transition">
+            @foreach ($program_pelatihan as $item)
+                <li>
+                <a href="{{ route('siswa_program.index')}}" class="flex justify-between items-center border border-gray-300 rounded-lg px-4 py-3 hover:bg-gray-100 transition">
                     <div>
-                        <p class="font-semibold text-gray-800">Program</p>
+                        <p class="font-semibold text-gray-800">{{ $item->nama_program}}</p>
                         <p class="text-gray-500 text-sm">Subhead</p>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -18,6 +19,8 @@
                     </svg>
                 </a>
             </li>
+            @endforeach
+
         </ul>
     </div>
 
@@ -28,21 +31,25 @@
             const siswaChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Program A', 'Program B', 'Program C', 'Program D', 'Program E'],
+                    labels: [
+                        @foreach ($program_pelatihan as $item)
+                            "{{ $item->nama_program }}"{{ !$loop->last ? ',' : '' }}
+                        @endforeach
+                    ],
                     datasets: [
                         {
                             label: 'Kelas A',
-                            data: [30, 15, 16, 14, 10],
+                            data: [30, 15, 16],
                             backgroundColor: 'rgba(107, 114, 128, 0.7)' // gray-500
                         },
                         {
                             label: 'Kelas B',
-                            data: [25, 30, 25, 16, 10],
+                            data: [25, 30, 25],
                             backgroundColor: 'rgba(156, 163, 175, 0.7)' // gray-400
                         },
                         {
                             label: 'Kelas C',
-                            data: [10, 16, 25, 10, 13],
+                            data: [10, 16, 25],
                             backgroundColor: 'rgba(209, 213, 219, 0.7)' // gray-300
                         }
                     ]

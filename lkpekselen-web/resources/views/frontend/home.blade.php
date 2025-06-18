@@ -151,7 +151,7 @@
         <button type="button" class="bg-cyan-600 rounded-xl text-white p-4">Daftar Online</button>
     </div>
 
-    <div class="mx-10 my-24 text-center">
+    <div class="mx-10 my-24 text-center" id="galeri">
         <p class="text-2xl font-medium text-indigo-900">GALERI</p>
         <div class="grid grid-flow-row gap-2 justify-items-center-safe mt-14 mx-12 md:grid-flow-col">
             <div class="w-36 bg-emerald-600 text-white md:w-48">Ruang Kelas</div>
