@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('no_wa', 14);
             $table->string('tempat_lahir', 100);
             $table->date('tanggal_lahir');
-            $table->string('asal_sekolah');
-            $table->string('nama_ortu', 30);
-            $table->string('pekerjaan_ortu');
+            $table->string('asal_sekolah')->nullable();
+            $table->string('nama_ortu', 30)->nullable();
+            $table->string('pekerjaan_ortu')->nullable();
             $table->uuid('id_kelas');
             $table->uuid('id_session');
             $table->uuid('id_jadwal');

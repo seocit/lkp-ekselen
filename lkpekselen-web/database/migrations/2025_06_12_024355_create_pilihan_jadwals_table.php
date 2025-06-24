@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('pilihan_jadwals', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->string('nama_jadwal', 20);
+            $table->string('kode');
+            $table->string('keterangan', 40);
             $table->timestamps();
         });
     }

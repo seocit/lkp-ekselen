@@ -6,7 +6,7 @@
         <ul class="space-y-3">
             @foreach ($kelas_program as $item)
             <li>
-                <a href="{{ route('materi kelas', $item->id)}}" class="flex justify-between items-center border border-gray-300 rounded-lg px-4 py-3 hover:bg-gray-100 transition">
+                <a href="{{ route('materi.kelas', $item->id)}}" class="flex justify-between items-center border border-gray-300 rounded-lg px-4 py-3 hover:bg-gray-100 transition">
                     <div>
                         <p class="font-semibold text-gray-800">{{ $item->nama_kelas}}</p>
                         <p class="text-gray-500 text-sm">{{ $item->program->nama_program}} Program</p>

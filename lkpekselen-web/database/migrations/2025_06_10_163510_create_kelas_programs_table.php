@@ -15,8 +15,11 @@ return new class extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->string('nama_kelas');
+            $table->integer('biaya_pendaftaran');
             $table->uuid('id_program');
             $table->foreign('id_program')->references('id')->on('program_pelatihans')->restrictOnDelete()->restrictOnUpdate();
+            $table->uuid('id_kategori')->nullable();
+            $table->foreign('id_kategori')->references('id')->on('kategori_kelas')->restrictOnDelete()->restrictOnUpdate();
             $table->timestamps();
         });
     }

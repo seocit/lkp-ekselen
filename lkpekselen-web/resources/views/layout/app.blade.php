@@ -22,7 +22,7 @@
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
             <div class="shrink-0 flex item-center space-x-2">
-              <img class="size-12" src="images/logo_ekselen-1.png" alt="Your Company">
+              <img class="size-10" src="{{ asset('images/logo_ekselen-1.png') }}" alt="Your Company">
               <article>
                 <span class="text-blue-900 font-medium">YAYASAN EKSELEN<br></span>
                 <span class="font-medium">HASYIM AL-BAROKAH</span>
@@ -202,7 +202,7 @@
     <!-- Alamat -->
         <div>
             <h3 class="text-lg font-semibold mb-3">Alamat</h3>
-            <img class="size-50" src="images/maps_ekselen.png" alt="">
+            <img class="size-50" src="{{ asset('images/maps_ekselen.png')}}" alt="">
             <p class="text-sm text-gray-300 mt-5">
                 Jl. Pangeran Ayin No. 01-02, Kenten Laut, Banyuasin, Palembang 30961<br>
             </p>

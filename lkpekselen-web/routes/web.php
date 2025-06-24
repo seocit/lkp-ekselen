@@ -4,6 +4,7 @@ use App\Http\Controllers\CalonSiswaController;
 use App\Http\Controllers\DataSiswaController;
 use App\Http\Controllers\KelasProgramController;
 use App\Http\Controllers\MateriController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\ProgramPelatihanController;
 use Illuminate\Support\Facades\Route;
@@ -28,25 +29,19 @@ Route::get('/komputer', function () {
     return view('frontend.komputer');
 })->name('komputer');
 
-Route::get('/form', function () {
-    return view('frontend.form');
-})->name('form');
-
 Route::get('/login', function () {
     return view('frontend.login');
 })->name('login');
 
-Route::get('/pembayaran_daftar', function () {
-    return view('frontend.pembayaran_daftar');
-})->name('pembayaran daftar');
+Route::get('/pembayaran/{id}', [PembayaranController::class, 'index'])->name('pembayaran.index');
 
-Route::get('/pembayaran_ditempat', function () {
-    return view('frontend.pembayaran_ditempat');
-})->name('pembayaran ditempat');
+Route::get('/pembayaran/transfer', function () {
+    return view('frontend.pembayaran.transfer');
+})->name('pembayaran.transfer');
 
-Route::get('/pembayaran_transfer', function () {
-    return view('frontend.pembayaran_transfer');
-})->name('pembayaran transfer');
+Route::get('/pendaftaran', [CalonSiswaController::class, 'create'])->name('pendaftaran.create');
+
+Route::post('/pendaftaran', [CalonSiswaController::class, 'store'])->name('pendaftaran.store');
 
 Route::get('/bukti_pembayaran_siswa',[CalonSiswaController::class, 'index'])->name('bukti pembayaran');
 
@@ -68,11 +63,11 @@ Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->nam
 
 Route::get('/materi', [KelasProgramController::class, 'index'])->name('materi');
 
-Route::get('/materi_kelas/{kelas}', [MateriController::class, 'showByKelas'])->name('materi kelas');
+Route::get('/materi/create', [MateriController::class, 'create'])->name('materi.create');
 
-Route::get('/materi_kelas/create', [MateriController::class, 'create'])->name('tambah materi');
+Route::post('/materi', [MateriController::class, 'store'])->name('materi.store');
 
-Route::post('/materi', [MateriController::class, ''])->name('materi.store');
+Route::get('/materi/{kelas}', [MateriController::class, 'showByKelas'])->name('materi.kelas');
 
 Route::get('/siswa', [ProgramPelatihanController::class, 'index'])->name('siswa');
 

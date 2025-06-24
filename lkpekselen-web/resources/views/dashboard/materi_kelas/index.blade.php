@@ -13,7 +13,7 @@
             </a>
             <h1 class="text-xl font-semibold">Materi Kelas {{ $kelas->nama_kelas}}</h1>
         </div>
-        <a href="{{ route('tambah materi', ['id_kelas' => $kelas->id])}}" class="bg-purple-300 text-purple-900 font-semibold px-4 py-2 rounded-full hover:bg-purple-400 transition">
+        <a href="{{ route('materi.create', ['id_kelas' => $kelas->id])}}" class="bg-purple-300 text-purple-900 font-semibold px-4 py-2 rounded-full hover:bg-purple-400 transition">
             Tambah Materi
         </a>
     </div>

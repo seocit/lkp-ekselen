@@ -17,7 +17,6 @@ class MateriController extends Controller
     public function create(Request $request){
         $id_kelas = $request->query('id_kelas');
         $kelas = KelasProgram::findOrFail($id_kelas);
-
         return view('dashboard.materi_kelas.create', compact('kelas'));
     }
     public function store(Request $request){
@@ -41,6 +40,6 @@ class MateriController extends Controller
 
         $materi->save();
 
-        return redirect()->route('materi.byKelas', $materi->id_kelas)->with('Success', 'Materi Berhasil Ditambahkan');
+        return redirect()->route('materi.kelas', $materi->id_kelas)->with('Success', 'Materi Berhasil Ditambahkan');
     }
 }

@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pilihan_sessions', function (Blueprint $table) {
+        Schema::create('biaya_spps', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->string('label', 20);
-            $table->string('jam');
+            $table->uuid('id_kelas');
+            $table->foreign('id_kelas')->references('id')->on('kelas_programs')->restrictOnDelete()->restrictOnUpdate();
+            $table->integer('nominal');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pilihan_sessions');
+        Schema::dropIfExists('biaya_spps');
     }
 };

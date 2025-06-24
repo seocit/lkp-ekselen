@@ -8,84 +8,79 @@
         <div class="flex justify-center mb-6">
             <img src="images/logo_ekselen-1.png" alt="Logo Ekselen" class="h-24 w-24 object-contain" />
         </div>
-        <form action="#" method="POST" class="space-y-6">
+        <form action="{{ route('pendaftaran.store')}}" method="POST" class="space-y-6">
             @csrf
             <h2 class="text-center text-gray-700 font-semibold mb-4">Formulir Pendaftaran</h2>
 
             <div class="grid grid-cols-3 gap-4 items-center">
                 <label for="nama" class="text-gray-700 text-sm">Nama</label>
-                <input type="text" id="nama" name="nama" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="text" id="nama" name="nama_siswa" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
 
                 <label for="alamat" class="text-gray-700 text-sm">Alamat</label>
                 <input type="text" id="alamat" name="alamat" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
 
                 <label for="no_telepon" class="text-gray-700 text-sm">No. Telepon</label>
-                <input type="text" id="no_telepon" name="no_telepon" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="text" id="no_telepon" name="no_wa" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
 
-                <label for="ttl" class="text-gray-700 text-sm">Tempat/Tanggal Lahir</label>
-                <input type="text" id="ttl" name="ttl" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <label for="tempat_lahir" class="text-gray-700 text-sm">Tempat Lahir</label>
+                <input type="text" id="tempat_lahir" name="tempat_lahir" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+                <label for="tanggal_lahir" class="text-gray-700 text-sm">Tanggal Lahir</label>
+                <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
 
                 <label for="asal_sekolah" class="text-gray-700 text-sm">Asal Sekolah</label>
                 <input type="text" id="asal_sekolah" name="asal_sekolah" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
 
                 <label for="nama_orang_tua" class="text-gray-700 text-sm">Nama Orang Tua/Wali</label>
-                <input type="text" id="nama_orang_tua" name="nama_orang_tua" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="text" id="nama_orang_tua" name="nama_ortu" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
 
                 <label for="pekerjaan_orang_tua" class="text-gray-700 text-sm">Pekerjaan Orang Tua</label>
-                <input type="text" id="pekerjaan_orang_tua" name="pekerjaan_orang_tua" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <input type="text" id="pekerjaan_orang_tua" name="pekerjaan_ortu" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
             </div>
 
             <div>
                 <label for="program" class="block text-gray-700 text-sm mb-1">Program</label>
-                <select id="program" name="program" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <select id="programSelect" name="id_program" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <option value="">-- Select Program --</option>
-                    <option value="English">English</option>
-                    <option value="MIPA">MIPA</option>
-                    <option value="Kursus Komputer">Kursus Komputer</option>
-                    <option value="TOEFL">TOEFL</option>
+                    @foreach ($programs as $item)
+                        <option value="{{ $item->id}}">{{ $item->nama_program}}</option>
+                    @endforeach
                 </select>
-
-                <!-- Container radio buttons -->
-                <div id="radio-container" class="grid grid-cols-3 gap-4 mt-2 text-gray-700 text-sm">
-                    <!-- Radio buttons will be injected here -->
-                </div>
             </div>
 
+            <!-- Container radio buttons -->
+            <div id="kelas-container" class="grid grid-cols-3 gap-4 mt-2 text-gray-700 text-sm"></div>
 
+            <div id="kategori-container" class="grid grid-cols-2 gap-4 mt-2 text-gray-700 text-sm hidden">
+                <label for="kategori_kelas" class="text-sm col-span-2">Pilih Kategori Kelas</label>
+                <select id="kategoriSelect" name="id_kategori_kelas" class="col-span-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <option value="">-- Pilih Kategori --</option>
+                @foreach ($kategori_kelas as $item)
+                    <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+                @endforeach
+                </select>
+            </div>
             <div class="mt-4 grid grid-cols-2 gap-4 text-gray-700 text-sm">
                 <div>
                     <p class="mb-1">Session</p>
-                    <label class="inline-flex items-center">
-                        <input type="radio" name="session" value="14.00 - 15.00" class="form-radio text-blue-600" />
-                        <span class="ml-2">14.00 - 15.00</span>
-                    </label>
-                    <label class="inline-flex items-center mt-1">
-                        <input type="radio" name="session" value="15.30 - 16.20" class="form-radio text-blue-600" />
-                        <span class="ml-2">15.30 - 16.20</span>
-                    </label>
-                    <label class="inline-flex items-center mt-1">
-                        <input type="radio" name="session" value="16.20 - 18.00" class="form-radio text-blue-600" />
-                        <span class="ml-2">16.20 - 18.00</span>
-                    </label>
-                    <label class="inline-flex items-center mt-1">
-                        <input type="radio" name="session" value="19.00 - 20.30" class="form-radio text-blue-600" />
-                        <span class="ml-2">19.00 - 20.30</span>
-                    </label>
+                    @foreach ($sessions as $item)
+                        <label class="inline-flex items-center mt-1">
+                        <input type="radio" name="id_session" value="{{ $item->id}}" class="form-radio text-blue-600" />
+                        <span class="ml-2">{{ $item->label}}:{{ $item->jam}}</span>
+                        </label>
+                    @endforeach
                 </div>
                 <div>
                     <p class="mb-1">Jadwal</p>
-                    <label class="inline-flex items-center">
-                        <input type="radio" name="jadwal" value="Senin - Rabu - Jum'at" class="form-radio text-blue-600" />
-                        <span class="ml-2">Senin - Rabu - Jum'at</span>
+                    @foreach ($jadwals as $item)
+                        <label class="inline-flex items-center mt-1">
+                        <input type="radio" name="id_jadwal" value="{{ $item->id}}" class="form-radio text-blue-600" />
+                        <span class="ml-2">{{ $item->keterangan}}</span>
                     </label>
-                    <label class="inline-flex items-center mt-1">
-                        <input type="radio" name="jadwal" value="Selasa - Kamis - Sabtu" class="form-radio text-blue-600" />
-                        <span class="ml-2">Selasa - Kamis - Sabtu</span>
-                    </label>
+                    @endforeach
                 </div>
             </div>
-
-
             <div class="mt-6">
                 <button type="submit" class="w-full bg-sky-400 text-white py-2 rounded-md hover:bg-sky-500 transition duration-200">Daftar</button>
             </div>
@@ -95,55 +90,62 @@
 </div>
 
 <script>
-    const programOptions = {
-        "English": [
-            "Primary", "Elementary", "Intermediate", "Advance", "Conversation Class", "Private Class"
-        ],
-        "MIPA": [
-            "Kelas 3 SD", "Kelas 4 SD", "Kelas 5 SD", "Kelas 6 SD",
-            "Kelas 7 SMP", "Kelas 8 SMP", "Kelas 9 SMP", "Kelas Privat"
-        ],
-        "Kursus Komputer": [
-            "Aplikasi Perkantoran", "Desain Grafis", "Pemrograman Dasar"
-        ],
-        "TOEFL": [
-            "Basic TOEFL", "Intermediate TOEFL", "TOEFL Simulation"
-        ]
-    };
+    const dataKelas = {!! json_encode($programs->map(function($p) {
+        return [
+            'id' => (string) $p->id,
+            'nama_program' => $p->nama_program,
+            'kelas' => $p->kelas->map(function($k) {
+                return [
+                    'id' => (string) $k->id,
+                    'nama_kelas' => $k->nama_kelas,
+                    'id_program' => (string) $k->id_program
+                ];
+            })
+        ];
+    })) !!}; // Ini akan menjadi array program lengkap dengan relasi 'kelas'
+    console.log('dataKelas:', dataKelas);
 
-    const selectEl = document.getElementById('program');
-    const container = document.getElementById('radio-container');
+    const programSelect = document.getElementById('programSelect');
+    const kelasContainer = document.getElementById('kelas-container');
+    const kategoriContainer = document.getElementById('kategori-container');
+    const kategoriSelect = document.getElementById('kategoriSelect');
 
-    selectEl.addEventListener('change', function () {
-        const selected = this.value;
-        container.innerHTML = ''; // clear previous radios
-
-        if (programOptions[selected]) {
-            const options = programOptions[selected];
-            const columns = [document.createElement('div'), document.createElement('div'), document.createElement('div')];
-
-            options.forEach((option, index) => {
-                const label = document.createElement('label');
-                label.className = 'inline-flex items-center mt-1';
-
-                const radio = document.createElement('input');
-                radio.type = 'radio';
-                radio.name = 'program_option'; // same name so only one can be selected
-                radio.value = option;
-                radio.className = 'form-radio text-blue-600';
-
-                const span = document.createElement('span');
-                span.className = 'ml-2';
-                span.textContent = option;
-
-                label.appendChild(radio);
-                label.appendChild(span);
-
-                columns[index % 3].appendChild(label);
-            });
-
-            columns.forEach(col => container.appendChild(col));
+    programSelect.addEventListener('change', function () {
+        const selectedId = this.value;
+        kelasContainer.innerHTML = ''; // Bersihkan isi sebelumnya
+        console.log('Selected ID:', selectedId);
+        const selectedProgram = dataKelas.find(p => p.id == selectedId);
+        console.log('Found program:', selectedProgram);
+        if (!selectedProgram || !selectedProgram.kelas || !selectedProgram.kelas.length) {
+            kelasContainer.innerHTML = `<p class="text-gray-500 col-span-3">Tidak ada kelas tersedia.</p>`;
+            return;
         }
+
+        selectedProgram.kelas.forEach(kelas => {
+            const label = document.createElement('label');
+            label.className = 'inline-flex items-center mt-1';
+
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = 'id_kelas';
+            radio.value = kelas.id;
+            radio.className = 'form-radio text-blue-600';
+
+            const span = document.createElement('span');
+            span.className = 'ml-2';
+            span.textContent = kelas.nama_kelas;
+
+            label.appendChild(radio);
+            label.appendChild(span);
+
+            kelasContainer.appendChild(label);
+            if (selectedProgram.nama_program.toLowerCase().includes('mipa')) {
+                kategoriContainer.classList.remove('hidden'); // Tampilkan
+            } else {
+                kategoriContainer.classList.add('hidden'); // Sembunyikan
+                kategoriSelect.value = ""; // Reset value
+            }
+        });
     });
 </script>
 
