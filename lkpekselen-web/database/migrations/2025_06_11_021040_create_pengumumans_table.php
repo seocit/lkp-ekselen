@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('pengumumans', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->string('judul');
-            $table->text('isi');
+            $table->string('judul', 50);
+            $table->text('isi', 500);
             $table->date('tanggal_pengumuman');
             // $table->uuid('id_admin');
             // $table->foreign('id_admin')->references('id')->on('users')->restrictOnDelete()->restrictOnUpdate();

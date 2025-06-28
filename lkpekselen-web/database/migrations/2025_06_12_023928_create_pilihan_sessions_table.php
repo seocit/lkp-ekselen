@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->string('label', 20);
-            $table->string('jam');
+            $table->string('jam', 30);
             $table->timestamps();
         });
     }

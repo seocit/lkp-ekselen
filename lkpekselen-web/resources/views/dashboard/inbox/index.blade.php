@@ -2,7 +2,8 @@
 @section('title', 'Inbox')
 @section('content')
     <div class="space-y-4">
-        <button type="button" onclick="window.location.href='{{ route('pengumuman.create')}}'" class="bg-purple-300 text-purple-900 font-semibold px-4 py-2 rounded-full hover:bg-purple-400 transition">
+        <button type="button" onclick="window.location.href='{{ route('pengumuman.create')}}'"
+        class="bg-purple-300 text-purple-900 font-semibold px-4 py-2 rounded-full hover:bg-purple-400 transition">
             Buat Pengumuman
         </button>
 

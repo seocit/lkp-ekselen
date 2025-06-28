@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class KelasProgram extends Model
 {
@@ -23,4 +24,18 @@ class KelasProgram extends Model
     public function kategori(){
         return $this->belongsTo(KategoriKelas::class, 'id_kategori');
     }
+    public function calon_siswas()
+    {
+        return $this->hasMany(CalonSiswa::class, 'id_kelas');
+    }
+    protected static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($model) {
+        if (empty($model->id)) {
+            $model->id = Str::uuid();
+        }
+    });
+}
 }

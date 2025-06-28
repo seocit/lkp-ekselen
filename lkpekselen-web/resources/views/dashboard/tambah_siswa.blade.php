@@ -1,6 +1,6 @@
-@extends('layout.app')
+@extends('layout.app-2')
 
-@section('title', 'Formulir Pendaftaran')
+@section('title', 'Tambah Pendaftaran')
 
 @section('content')
 <div class="flex justify-center mt-10 mb-20">
@@ -8,7 +8,7 @@
         <div class="flex justify-center mb-6">
             <img src="images/logo_ekselen-1.png" alt="Logo Ekselen" class="h-24 w-24 object-contain" />
         </div>
-        <form action="{{ route('pendaftaran.store')}}" method="POST" class="space-y-6">
+        <form action="{{ route('store.siswa')}}" method="POST" class="space-y-6">
             @csrf
             <h2 class="text-center text-gray-700 font-semibold mb-4">Formulir Pendaftaran</h2>
 

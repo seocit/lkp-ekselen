@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class PembayaranTransfer extends Model
 {
@@ -15,11 +16,18 @@ class PembayaranTransfer extends Model
 
     protected $fillable = [
         'id',
-        'tipe_pembayaran',
-        'id_referensi',
-        'nama_siswa',
-        'nominal',
-        'status_verifikasi',
-        'catatan_admin',
+    'tipe_pembayaran',
+    'id_refrensi',
+    'bukti_transfer',
+    'status_verifikasi',
     ];
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            if (!$model->id) {
+                $model->id = (string) Str::uuid();
+            }
+        });
+    }
 }

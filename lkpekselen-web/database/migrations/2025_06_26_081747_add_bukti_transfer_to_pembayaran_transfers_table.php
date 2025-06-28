@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('program_pelatihans', function (Blueprint $table) {
-            $table->uuid('id');
-            $table->primary('id');
-            $table->string('nama_program', 10);
-            $table->timestamps();
+        Schema::table('pembayaran_transfers', function (Blueprint $table) {
+            $table->string('bukti_transfer')->nullable()->after('id_refrensi');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('program_pelatihans');
+        Schema::table('pembayaran_transfers', function (Blueprint $table) {
+            $table->dropColumn('bukti_transfer');
+        });
     }
 };

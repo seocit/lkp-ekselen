@@ -17,7 +17,7 @@ return new class extends Migration
             $table->enum('tipe_pembayaran', ['pendaftaran', 'spp']);
             $table->uuid('id_refrensi')->nullable();
             $table->string('nama_siswa')->nullable();
-            $table->decimal('nominal', 12, 2);
+            $table->integer('nominal');
             $table->enum('status_verifikasi', ['pending', 'diterima', 'ditolak'])->default('pending');
             $table->text('catatan_admin')->nullable();
             $table->timestamps();

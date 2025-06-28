@@ -6,6 +6,7 @@
     <title>@yield('title', 'My App 2')</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
     @vite('resources/css/app.css')
 </head>
 <body class="h-full flex flex-col">
@@ -28,7 +29,7 @@
                     <span>Inbox</span>
                     {{-- <span class="ml-auto bg-gray-300 rounded-full px-2 text-xs">6</span> --}}
                 </a>
-                <a href="{{ route('materi') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
+                <a href="{{ route('materi.index') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
                     <span>Materi</span>
                 </a>
@@ -36,13 +37,21 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
                     <span>Pembayaran</span>
                 </a>
-                <a href="{{ route('siswa') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
+                <a href="{{ route('data-siswa.index') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
                     <span>Siswa</span>
+                </a>
+                <a href="{{ route('data calon siswa') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
+                    <span>  Calon Siswa</span>
                 </a>
                 <a href="{{ route('bukti pembayaran') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
                     <span>Bukti Pembayaran Siswa</span>
+                </a>
+                <a href="{{ route('add.siswa') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
+                    <span>Tambah Siswa</span>
                 </a>
             </nav>
         </aside>

@@ -11,6 +11,7 @@
             <div>
                 <p class="font-semibold">{{ $item->nama_siswa}}</p>
                 <p class="text-sm text-gray-600">{{ $item->kelas_choice->nama_kelas}}</p>
+                <p class="text-xs text-gray-500">{{ $item->kategori_kelas->nama_kategori ?? "-"}}</p>
                 <p class="text-xs text-gray-500">{{ $item->tanggal_daftar}}</p>
             </div>
             <button class="text-gray-600 hover:text-gray-900" aria-label="Download">

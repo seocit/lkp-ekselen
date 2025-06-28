@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('materis', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->string('nama_materi');
-            $table->text('deskripsi')->nullable();
-            $table->string('nama_file')->nullable();
+            $table->string('nama_materi', 30);
+            $table->text('deskripsi', 100)->nullable();
+            $table->string('nama_file', 30)->nullable();
             $table->uuid('id_kelas');
             $table->foreign('id_kelas')->references('id')->on('kelas_programs')->restrictOnDelete()->restrictOnUpdate();
             $table->timestamps();

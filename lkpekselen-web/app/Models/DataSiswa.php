@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class DataSiswa extends Model
 {
+    protected $keyType = 'string';
+    public $incrementing = false;
     protected $table = 'data_siswas';
-    public function kelas_choice(){
-        return $this->belongsTo(KelasProgram::class, 'id_kelas');
+    protected $fillable = [
+    'id',
+    'id_calon_siswa',
+    'status',
+    'tanggal_masuk',
+    ];
+
+    public function calonSiswa()
+    {
+        return $this->belongsTo(CalonSiswa::class, 'id_calon_siswa');
     }
-    public function session_choice(){
-        return $this->belongsTo(PilihanSession::class, 'id_session');
-    }
-    public function jadwal_choice(){
-        return $this->belongsTo(PilihanJadwal::class, 'id_jadwal');
-    }
-    // public function getRouteKeyName()
-    // {
-    //     return 'id';
-    // }
 
 }

@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('nama_siswa', 30);
             $table->string('alamat');
             $table->string('no_wa', 14);
-            $table->string('tempat_lahir');
+            $table->string('tempat_lahir', 20);
             $table->date('tanggal_lahir');
-            $table->string('asal_sekolah');
+            $table->string('asal_sekolah', 40);
             $table->string('nama_ortu', 30);
-            $table->string('pekerjaan_ortu');
+            $table->string('pekerjaan_ortu', 30);
             $table->uuid('id_kelas');
             $table->uuid('id_session');
             $table->uuid('id_jadwal');

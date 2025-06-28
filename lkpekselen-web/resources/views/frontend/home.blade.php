@@ -148,7 +148,7 @@
 
     <div class="bg-emerald-600 px-28 py-46 grid grid-row-1 place-content-center-safe gap-4">
         <p class="text-4xl text-white font-bold">"AYO BELAJAR DI EKSELEN!"</p>
-        <button type="button" class="bg-cyan-600 rounded-xl text-white p-4">Daftar Online</button>
+        <button type="button" class="bg-cyan-600 rounded-xl text-white p-4" onclick="window.location.href='{{ route('pendaftaran.create')}}'">Daftar Online</button>
     </div>
 
     <div class="mx-10 my-24 text-center" id="galeri">

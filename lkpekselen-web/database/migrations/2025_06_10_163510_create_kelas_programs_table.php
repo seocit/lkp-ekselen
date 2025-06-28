@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('kelas_programs', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->string('nama_kelas');
+            $table->string('nama_kelas', 15);
             $table->integer('biaya_pendaftaran');
             $table->uuid('id_program');
             $table->foreign('id_program')->references('id')->on('program_pelatihans')->restrictOnDelete()->restrictOnUpdate();
