@@ -18,12 +18,27 @@ class CalonSiswaController extends Controller
         $calon_siswa = CalonSiswa::all();
         return view('dashboard.bukti_pembayaran', compact('calon_siswa'));
     }
-    public function list_calon_siswa(){
-        $list_calon_siswa = CalonSiswa::with(['kelas_choice.program', 'kategori_kelas', 'Pembayaran_transfer'])
-        ->whereDoesntHave('dataSiswa')
-        ->get();
+    public function list_calon_siswa(Request $request){
+        // dd($request->all());
+        $list_program = ProgramPelatihan::all();
+        $query = CalonSiswa::with(['kelas_choice.program', 'kategori_kelas', 'Pembayaran_transfer'])
+        ->whereDoesntHave('dataSiswa');
 
-        return view('dashboard.calon_siswa', compact('list_calon_siswa'));
+        // 🔍 Filter search nama
+    if ($request->filled('search')) {
+        $query->where('nama_siswa', 'like', '%' . $request->search . '%');
+    }
+
+    // 🧪 Filter program
+    if ($request->filled('program')) {
+        $query->whereHas('kelas_choice.program', function ($q) use ($request) {
+            $q->where('id', $request->program);
+        });
+    }
+
+    $list_calon_siswa = $query->get();
+
+    return view('dashboard.calon_siswa', compact('list_calon_siswa', 'list_program'));
     }
     public function create(){
         $programs = ProgramPelatihan::with('kelas')->get();

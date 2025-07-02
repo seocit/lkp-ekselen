@@ -41,7 +41,7 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
                     <span>Siswa</span>
                 </a>
-                <a href="{{ route('data calon siswa') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
+                <a href="{{ route('calon_siswa.list') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
                     <span>  Calon Siswa</span>
                 </a>
