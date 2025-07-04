@@ -38,9 +38,12 @@ Route::get('/pembayaran/transfer', function () {
     return view('frontend.pembayaran.transfer');
 })->name('pembayaran.transfer');
 
+
 Route::post('/pembayaran/transfer', [PembayaranController::class, 'store'])->name('pembayaran.transfer.store');
 
 Route::get('/pembayaran/{id}', [PembayaranController::class, 'index'])->name('pembayaran.index');
+
+
 
 Route::get('/pendaftaran', [CalonSiswaController::class, 'create'])->name('pendaftaran.create');
 
