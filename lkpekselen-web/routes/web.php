@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CalonSiswaController;
 use App\Http\Controllers\DataSiswaController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\KelasProgramController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\PembayaranController;
@@ -55,13 +56,15 @@ Route::post('/tambah-siswa', [CalonSiswaController::class, 'storeFromAdmin'])->n
 
 Route::get('/bukti_pembayaran_siswa',[CalonSiswaController::class, 'index'])->name('bukti pembayaran');
 
+Route::get('/export-siswa', [ExportController::class, 'exportSiswa'])->name('export.siswa');
+
 Route::get('/data-siswa', [DataSiswaController::class, 'index'])->name('data-siswa.index');
 
 Route::get('/data-siswa/{id}', [DataSiswaController::class, 'show'])->name('data-siswa.show');
 
 Route::put('/data-siswa/{id}/update-status', [DataSiswaController::class, 'updateStatus'])->name('data-siswa.update-status');
 
-Route::get('/data_calon_siswa', [CalonSiswaController::class, 'list_calon_siswa'])->name('data calon siswa');
+Route::get('/data_calon_siswa', [CalonSiswaController::class, 'list_calon_siswa'])->name('calon_siswa.list');
 
 Route::post('/calon-siswa/promote', [CalonSiswaController::class, 'promoteToSiswa'])->name('calon-siswa.promote');
 
