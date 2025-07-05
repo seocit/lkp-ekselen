@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'My App')</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="h-full">
     <!--
@@ -21,7 +21,7 @@
     <nav class="bg-white" x-data="{ isOpen: false }">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
-            <div class="shrink-0 flex item-center space-x-2">
+            <div class="shrink-0 flex items-center space-x-2">
               <img class="size-10" src="{{ asset('images/logo_ekselen-1.png') }}" alt="Your Company">
               <article>
                 <span class="text-blue-900 font-medium">YAYASAN EKSELEN<br></span>
@@ -29,7 +29,7 @@
               </article>
             </div>
             <div class="hidden md:block">
-              <div class="ml-100 flex items-baseline">
+              <div class="ml-[25rem] flex items-baseline">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                 <a href="{{ route('home')}}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">HOME</a>
                 <a href="{{ route('about')}}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">ABOUT</a>

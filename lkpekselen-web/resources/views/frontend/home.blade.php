@@ -2,7 +2,7 @@
 @section('title', 'Home')
 @section('content')
     <div class="px-5 py-40 bg-teal-600 md:px-40">
-            <article class="text-wrap w-124">
+            <article class="text-wrap w-[31rem]">
                 <p class="text-4xl text-white font-bold">ENGLISH COURSE</p>
                 <p class="text-xl text-white my-8">Our experienced instructure will help you to improve your language skills in a fun and interactive environment. Our courses cover speaking, writing, and grammar fundamental.</p>
             </article>
@@ -12,7 +12,7 @@
     <div class="mx-10 my-24 text-center md:mx-64">
         <p class="text-3xl font-medium text-indigo-900 py-10">ABOUT</p>
         <p class="text-lg text-gray-600">Bimbingan belajar (Bimbel) adalah sebuah kebutuhan yang penting di masa sekarang. Materi pelajaran yang relatif sulit dan tuntutan dari sekolah untuk mencapai standar nilai minimal membuat para siswa perlu mendapatkan bimbingan/les diluar jam sekolah.</p>
-        <div class="grid grid-flow-row justify-items-center-safe gap-10 mt-14 md:grid-flow-col">
+        <div class="grid grid-flow-row justify-items-center gap-10 mt-14 md:grid-flow-col">
             <div class="w-48">
                 <div class="bg-emerald-600">01</div>
                 <p class="text-xl font-medium text-indigo-900">Akreditasi</p>
@@ -146,22 +146,22 @@
         </div>
     </div>
 
-    <div class="bg-emerald-600 px-28 py-46 grid grid-row-1 place-content-center-safe gap-4">
+    <div class="bg-emerald-600 px-28 py-[11.5rem] grid grid-row-1 place-content-center gap-4">
         <p class="text-4xl text-white font-bold">"AYO BELAJAR DI EKSELEN!"</p>
         <button type="button" class="bg-cyan-600 rounded-xl text-white p-4" onclick="window.location.href='{{ route('pendaftaran.create')}}'">Daftar Online</button>
     </div>
 
     <div class="mx-10 my-24 text-center" id="galeri">
         <p class="text-2xl font-medium text-indigo-900">GALERI</p>
-        <div class="grid grid-flow-row gap-2 justify-items-center-safe mt-14 mx-12 md:grid-flow-col">
+        <div class="grid grid-flow-row gap-2 justify-items-center mt-14 mx-12 md:grid-flow-col">
             <div class="w-36 bg-emerald-600 text-white md:w-48">Ruang Kelas</div>
             <div class="w-36 bg-emerald-600 text-white md:w-48">Suasana Belajar</div>
             <div class="w-36 bg-emerald-600 text-white md:w-48">Evaluasi</div>
         </div>
-        <div class="grid grid-flow-row justify-items-center-safe gap-2 mx-8 mt-14 md:grid-flow-col">
-            <img class="w-240 h-80" src="images/kelas_1.jpg" alt="">
-            <img class="w-240 h-80" src="images/kelas_2.jpeg" alt="">
-            <img class="w-240 h-80" src="images/kelas_3.jpeg" alt="">
+        <div class="grid grid-flow-row justify-items-center gap-2 mx-8 mt-14 md:grid-flow-col">
+            <img class="w-[60rem] h-80" src="images/kelas_1.jpg" alt="">
+            <img class="w-[60rem] h-80" src="images/kelas_2.jpeg" alt="">
+            <img class="w-[60rem] h-80" src="images/kelas_3.jpeg" alt="">
         </div>
     </div>
 

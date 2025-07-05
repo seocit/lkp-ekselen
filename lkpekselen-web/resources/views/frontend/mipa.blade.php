@@ -71,7 +71,8 @@
                 </tr>
             </table>
             <div class="text-center">
-                <button class="mt-auto bg-white px-24 py-2 rounded-xl mx-auto inline-block">
+                <button class="mt-auto bg-white px-24 py-2 rounded-xl mx-auto inline-block"
+                onclick="window.location.href='{{ route('pendaftaran.create')}}'">
                     Daftar
                 </button>
             </div>

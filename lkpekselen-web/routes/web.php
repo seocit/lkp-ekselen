@@ -1,17 +1,19 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CalonSiswaController;
-use App\Http\Controllers\DataSiswaController;
-use App\Http\Controllers\ExportController;
-use App\Http\Controllers\KelasProgramController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengumumanController;
-use App\Http\Controllers\ProgramPelatihanController;
-use App\Models\CalonSiswa;
+use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/home', function () {
     return view('frontend.home');
 })->name('home');
 
@@ -31,14 +33,6 @@ Route::get('/komputer', function () {
     return view('frontend.komputer');
 })->name('komputer');
 
-Route::get('/login', function () {
-    return view('frontend.login');
-})->name('login');
-
-Route::get('/pembayaran/transfer', function () {
-    return view('frontend.pembayaran.transfer');
-})->name('pembayaran.transfer');
-
 Route::post('/pembayaran/transfer', [PembayaranController::class, 'store'])->name('pembayaran.transfer.store');
 
 Route::get('/pembayaran/{id}', [PembayaranController::class, 'index'])->name('pembayaran.index');
@@ -47,66 +41,62 @@ Route::get('/pendaftaran', [CalonSiswaController::class, 'create'])->name('penda
 
 Route::post('/pendaftaran', [CalonSiswaController::class, 'store'])->name('pendaftaran.store');
 
-Route::get('/tambah-siswa', [CalonSiswaController::class, 'createFromAdmin'])->name('add.siswa');
+Route::middleware(['auth', IsAdmin::class])->group(function (){
 
-Route::post('/tambah-siswa', [CalonSiswaController::class, 'storeFromAdmin'])->name('store.siswa');
+    Route::prefix('inbox')->name('pengumuman.')->controller(PengumumanController::class)->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{id}/edit', 'edit')->where('id', '[0-9a-fA-F\-]+')->name('edit');
+        Route::put('/{id}', 'update')->where('id', '[0-9a-fA-F\-]+')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+    });
 
-Route::get('/bukti_pembayaran_siswa',[CalonSiswaController::class, 'index'])->name('bukti pembayaran');
+    // Route::get('/inbox', [PengumumanController::class, 'index'])->name('pengumuman.index');
 
-Route::get('/export-siswa', [ExportController::class, 'exportSiswa'])->name('export.siswa');
+    // Route::get('/inbox/create', [PengumumanController::class, 'create'])->name('pengumuman.create');
 
-Route::get('/data-siswa', [DataSiswaController::class, 'index'])->name('data-siswa.index');
+    // Route::post('/inbox', [PengumumanController::class, 'store'])->name('pengumuman.store');
 
-Route::get('/data-siswa/{id}', [DataSiswaController::class, 'show'])->name('data-siswa.show');
+    // Route::get('/inbox/{id}/edit', [PengumumanController::class, 'edit'])
+    // ->where('id', '[0-9a-fA-F\-]+')
+    // ->name('pengumuman.edit');
 
-Route::put('/data-siswa/{id}/update-status', [DataSiswaController::class, 'updateStatus'])->name('data-siswa.update-status');
+    // Route::put('/inbox/{id}', [PengumumanController::class, 'update'])
+    // ->where('id', '[0-9a-fA-F\-]+')
+    // ->name('pengumuman.update');
 
-Route::get('/data_calon_siswa', [CalonSiswaController::class, 'list_calon_siswa'])->name('calon_siswa.list');
+    // Route::delete('/inbox/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
 
-Route::post('/calon-siswa/promote', [CalonSiswaController::class, 'promoteToSiswa'])->name('calon-siswa.promote');
+    Route::get('/materi', [MateriController::class, 'index'])->name('materi.index');
 
-Route::get('/inbox', [PengumumanController::class, 'index'])->name('inbox');
+    Route::get('/materi/create', [MateriController::class, 'create'])->name('materi.create');
 
-Route::get('/inbox/create', [PengumumanController::class, 'create'])->name('pengumuman.create');
+    Route::post('/materi', [MateriController::class, 'store'])->name('materi.store');
 
-Route::post('/inbox', [PengumumanController::class, 'store'])->name('pengumuman.store');
+    Route::get('/materi/download/{id}', [MateriController::class, 'download'])->name('materi.download');
 
-Route::get('/inbox/{id}/edit', [PengumumanController::class, 'edit'])
-->where('id', '[0-9a-fA-F\-]+')
-->name('pengumuman.edit');
+    Route::get('/materi/{id}/edit', [MateriController::class, 'edit'])->name('materi.edit');
 
-Route::put('/inbox/{id}', [PengumumanController::class, 'update'])
-->where('id', '[0-9a-fA-F\-]+')
-->name('pengumuman.update');
+    Route::put('/materi/{id}', [MateriController::class, 'update'])->name('materi.update');
 
-Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
+    Route::delete('/materi/{id}', [MateriController::class, 'destroy'])->name('materi.destroy');
 
-// Route::get('/materi', [KelasProgramController::class, 'index'])->name('materi');
+});
 
-Route::get('/materi', [MateriController::class, 'index'])->name('materi.index');
+// Route::middleware([IsAdmin::class])->get('/tes-admin', function () {
+//     return 'Halo Admin';
+// });
 
-Route::get('/materi/create', [MateriController::class, 'create'])->name('materi.create');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/materi', [MateriController::class, 'store'])->name('materi.store');
 
-Route::get('/materi/download/{id}', [MateriController::class, 'download'])->name('materi.download');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-// Route::get('/materi/{kelas}', [MateriController::class, 'showByKelas'])->name('materi.kelas');
-
-Route::get('/materi/{id}/edit', [MateriController::class, 'edit'])->name('materi.edit');
-
-Route::put('/materi/{id}', [MateriController::class, 'update'])->name('materi.update');
-
-Route::delete('/materi/{id}', [MateriController::class, 'destroy'])->name('materi.destroy');
-
-// Route::get('/siswa', [ProgramPelatihanController::class, 'index'])->name('siswa');
-
-Route::get('/siswa_program', [DataSiswaController::class, 'index'])->name('siswa_program.index');
-
-// Route::get('/siswa_program/{siswa:id}', [DataSiswaController::class, 'show'])->name('siswa_program.show');
-
-Route::get('/detail_siswa', [DataSiswaController::class, 'show'])->name('siswa_program.show');
-
-Route::get('/pembayaran_spp', function () {
-    return view('dashboard.pembayaran_spp');
-})->name('pembayaran spp');
+require __DIR__.'/auth.php';

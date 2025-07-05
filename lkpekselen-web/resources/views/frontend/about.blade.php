@@ -6,7 +6,7 @@
     </div>
 
     <div class="mx-40 my-10">
-        <div class="grid grid-cols-2 gap-15">
+        <div class="grid grid-cols-2 gap-16">
             <article>
                 <h2 class="text-3xl font-bold text-indigo-900">LPK EKSELEN</h2>
                 <hr class="border-2 border-green-600">
@@ -19,7 +19,7 @@
             <img src="/images/foto-bersama-1.jpeg" alt="">
         </div>
 
-        <div class="pt-10 grid grid-cols-3 gap-15">
+        <div class="pt-10 grid grid-cols-3 gap-16">
             <article>
                 <h2 class="text-3xl font-bold text-indigo-900">VISI</h2>
                 <hr class="border-2 border-green-600">
@@ -49,11 +49,11 @@
             </article>
         </div>
 
-        <p class="font-semibold text-indigo-900">Manajemen</p>
-        <hr class="border-2 border-red-700 w-21">
+        {{-- <p class="font-semibold text-indigo-900">Manajemen</p>
+        <hr class="border-2 border-red-700 w-[5rem]">
         <h2 class="text-3xl font-bold text-indigo-900">Staff dan Guru</h2>
 
-        <div class="grid grid-cols-3 gap-5 my-10 justify-item-stretch">
+        <div class="grid grid-cols-3 gap-5 my-10 justify-items-stretch">
             <div class="text-center w-[380px]">
                 <img src="images/jas.jpg" alt="Deskripsi gambar" class="w-full h-auto"/>
                 <p class="text-sm bg-gray-300 py-1">
@@ -72,7 +72,7 @@
                     Sir Robert
                 </p>
             </div>
-        </div>
+        </div> --}}
     </div>
 
 
