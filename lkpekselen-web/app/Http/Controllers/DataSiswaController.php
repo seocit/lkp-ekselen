@@ -23,7 +23,7 @@ public function index(Request $request)
     // 🎯 Filter program
     if ($request->filled('id_program')) {
         $query->whereHas('calonSiswa.kelas_choice', function ($q) use ($request) {
-                            $q->where('id_program', $request->id_program);
+            $q->where('id_program', $request->id_program);
         });
     }
 

@@ -1,18 +1,10 @@
 @extends('layout.app')
 @section('title', 'About')
 @section('content')
+    <div class="px-5 py-20 bg-teal-600 md:px-40">
+            <p class="text-4xl text-white font-bold">About Us</p>
+    </div>
 
-<div class="px-5 py-20 bg-teal-600 md:px-40">
-    <p class="text-2xl sm:text-3xl md:text-4xl text-white font-bold">About Us</p>
-</div>
-
-<div class="px-5 md:px-20 lg:px-40 my-10">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        <article>
-            <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-indigo-900">LPK EKSELEN</h2>
-            <hr class="border-2 border-green-600 my-2">
-            <p class="pt-5 text-gray-600 text-sm sm:text-base md:text-lg text-justify leading-relaxed">
-                Bimbingan belajar (Bimbel) adalah sebuah kebutuhan yang penting di masa sekarang. Materi pelajaran yang relatif sulit dan tuntutan dari sekolah untuk mencapai standar nilai minimal (KKM) membuat para siswa perlu mendapatkan bimbingan/les di luar jam sekolah.
     <div class="mx-40 my-10">
         <div class="grid grid-cols-2 gap-16">
             <article>
@@ -21,13 +13,13 @@
                 <p class="pt-5 text-justify text-gray-600">
                 Bimbingan belajar(Bimbel) adalah sebuah kebutuhan yang penting di masa sekarang. Materi pelajaran yang relatif sulit dan tuntutan dari sekolah untuk mencapai standar nilai minimal(KKM) membuat para siswa perlu mendapatkan bimbingan/les diluar jam sekolah.
                 <br><br>
-                Bimbel EKSELEN hadir sebagai solusi bagi para siswa dan orangtua. Metode Pembelajaran yang berbasis kompetensi sesuai kurikulum sekolah, pemberian dan pembahasan latihan-latihan soal intensif diharapkan dapat memacu peningkatan prestasi siswa di sekolah. Didukung dengan Tentor-tentor dari Perguruan Tinggi Negeri (PTN) yang handal akan membantu para siswa memecahkan soal-soal dan memahami mata pelajaran secara lebih komprehensif.
-            </p>
-        </article>
-        <img src="/images/foto-bersama-1.jpeg" alt="Foto Bersama" class="w-full rounded-lg shadow-lg object-cover">
-    </div>
+                Bimbel EKSELEN hadir sebagai solusi bagi para siswa dan orangtua. Metode Pembelajaran yang berbasis kompetensi sesuai kurikulum sekolah, pemberian dan pembahasan latihan-latihan soal intensif diharapkan dapat memacu peningkatan prestasi siswa di sekolah. Didukung dengan Tentor-tentor dari Perguruan Tinggi Negri (PTN) yang handalakan membantu para siswa memcahkan soal-soal dan memahami mata pelajaran secara lebih komprehensif.
+                </p>
+            </article>
+            <img src="/images/foto-bersama-1.jpeg" alt="">
+        </div>
 
-        <div class="pt-10 grid grid-cols-3 gap-15">
+        <div class="pt-10 grid grid-cols-3 gap-16">
             <article>
                 <h2 class="text-3xl font-bold text-indigo-900">VISI</h2>
                 <hr class="border-2 border-green-600">
@@ -57,27 +49,32 @@
             </article>
         </div>
 
-        <p class="font-semibold text-indigo-900">Manajemen</p>
-        <hr class="border-2 border-red-700 w-21">
+        {{-- <p class="font-semibold text-indigo-900">Manajemen</p>
+        <hr class="border-2 border-red-700 w-[5rem]">
         <h2 class="text-3xl font-bold text-indigo-900">Staff dan Guru</h2>
 
-        <div class="grid grid-cols-3 gap-5 my-10 justify-item-stretch">
+        <div class="grid grid-cols-3 gap-5 my-10 justify-items-stretch">
             <div class="text-center w-[380px]">
                 <img src="images/jas.jpg" alt="Deskripsi gambar" class="w-full h-auto"/>
                 <p class="text-sm bg-gray-300 py-1">
                     Sir Robert
                 </p>
             </div>
-            <div class="text-center">
-                <img src="images/jas.jpg" alt="Deskripsi gambar" class="w-full h-auto rounded-lg shadow-md" />
-                <p class="text-sm bg-gray-300 py-1 mt-1">Sir Robert</p>
+            <div class="text-center w-[380px]">
+                <img src="images/jas.jpg" alt="Deskripsi gambar" class="w-full h-auto"/>
+                <p class="text-sm bg-gray-300 py-1">
+                    Sir Robert
+                </p>
             </div>
-            <div class="text-center">
-                <img src="images/jas.jpg" alt="Deskripsi gambar" class="w-full h-auto rounded-lg shadow-md" />
-                <p class="text-sm bg-gray-300 py-1 mt-1">Sir Robert</p>
+            <div class="text-center w-[380px]">
+                <img src="images/jas.jpg" alt="Deskripsi gambar" class="w-full h-auto"/>
+                <p class="text-sm bg-gray-300 py-1">
+                    Sir Robert
+                </p>
             </div>
         </div> --}}
     </div>
-</div>
+
+
 
 @endsection
