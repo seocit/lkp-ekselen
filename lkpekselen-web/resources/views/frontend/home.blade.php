@@ -13,6 +13,10 @@ s@extends('layout.app')
                     Our experienced instructors will help you to improve your language skills in a fun and interactive environment. 
                     Our courses cover speaking, writing, and grammar fundamentals.
                 </p>
+    <div class="px-5 py-40 bg-teal-600 md:px-40">
+            <article class="text-wrap w-[31rem]">
+                <p class="text-4xl text-white font-bold">ENGLISH COURSE</p>
+                <p class="text-xl text-white my-8">Our experienced instructure will help you to improve your language skills in a fun and interactive environment. Our courses cover speaking, writing, and grammar fundamental.</p>
             </article>
             <a href="{{ route('bing') }}" 
             class="bg-white rounded-xl px-4 py-2 md:p-4 inline-block text-teal-700 font-semibold hover:bg-gray-100 transition text-sm md:text-base">
@@ -21,27 +25,14 @@ s@extends('layout.app')
         </div>
     </div>
 
-    {{-- section about --}}
-    <div class="relative py-16 md:py-24"> <!-- Gunakan padding tetap bukan min-height -->
-    <div class="container mx-auto px-5 md:px-10 lg:px-20 max-w-6xl"> <!-- Container dengan max-width -->
-        <div class="text-center">
-        <p class="text-2xl md:text-3xl font-medium text-indigo-900 mb-6 md:mb-10">ABOUT</p>
-        <p class="text-sm md:text-base lg:text-lg text-gray-600 mx-auto max-w-3xl"> <!-- Batasi lebar teks -->
-            Bimbingan belajar (Bimbel) adalah sebuah kebutuhan yang penting di masa sekarang. 
-            Materi pelajaran yang relatif sulit dan tuntutan dari sekolah untuk mencapai 
-            standar nilai minimal membuat para siswa perlu mendapatkan bimbingan/les 
-            diluar jam sekolah.
-        </p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-10 md:mt-14">
-            <!-- Item 1 -->
-            <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <img src="{{ asset('images/akreditasi.png') }}" alt="Akreditasi" 
-                class="w-16 h-16 md:w-20 md:h-20 object-contain mx-auto">
-            <p class="text-lg md:text-xl font-medium text-indigo-900 mt-4">Akreditasi</p>
-            <p class="text-xs md:text-sm text-gray-600 mt-2">
-                LKP/LPK Ekselen Sudah Terakreditasi B
-            </p>
+    <div class="mx-10 my-24 text-center md:mx-64">
+        <p class="text-3xl font-medium text-indigo-900 py-10">ABOUT</p>
+        <p class="text-lg text-gray-600">Bimbingan belajar (Bimbel) adalah sebuah kebutuhan yang penting di masa sekarang. Materi pelajaran yang relatif sulit dan tuntutan dari sekolah untuk mencapai standar nilai minimal membuat para siswa perlu mendapatkan bimbingan/les diluar jam sekolah.</p>
+        <div class="grid grid-flow-row justify-items-center gap-10 mt-14 md:grid-flow-col">
+            <div class="w-48">
+                <div class="bg-emerald-600">01</div>
+                <p class="text-xl font-medium text-indigo-900">Akreditasi</p>
+                <p class="text-gray-600">LKP/LPK Ekselen Sudah Terakreditasi B</p>
             </div>
             
             <!-- Item 2 -->
@@ -184,31 +175,23 @@ s@extends('layout.app')
             </div>
         </div>
     </div>
-    {{-- end section kursus --}}
 
-    {{-- cta --}}
-    <div class="bg-emerald-600 px-5 py-10 md:px-28 md:py-16 text-center bg-bottom-right " style="background-image: url('{{ asset('images/cta.jpg') }}');">
-        <div class="max-w-4xl mx-auto">
-            <p class="text-2xl md:text-4xl text-white font-bold mb-6">"AYO BELAJAR DI EKSELEN!"</p>
-            <button type="button" 
-                    class="bg-cyan-600 hover:bg-cyan-700 rounded-xl text-white font-semibold px-8 py-4 text-lg transition-colors duration-200"
-                    onclick="window.location.href='{{ route('pendaftaran.create')}}'">
-                Daftar Online
-            </button>
-        </div>
+    <div class="bg-emerald-600 px-28 py-[11.5rem] grid grid-row-1 place-content-center gap-4">
+        <p class="text-4xl text-white font-bold">"AYO BELAJAR DI EKSELEN!"</p>
+        <button type="button" class="bg-cyan-600 rounded-xl text-white p-4" onclick="window.location.href='{{ route('pendaftaran.create')}}'">Daftar Online</button>
     </div>
-    {{-- ctaend --}}
-    <div class="mx-5 my-12 md:my-24 text-center" id="galeri">
-        <p class="text-xl md:text-2xl font-medium text-indigo-900">GALERI</p>
-        <div class="grid grid-cols-3 gap-2 md:gap-4 mt-8 md:mt-14 mx-2 md:mx-12">
-            <div class="w-full bg-emerald-600 text-white text-xs md:text-base py-2 md:py-3">Ruang Kelas</div>
-            <div class="w-full bg-emerald-600 text-white text-xs md:text-base py-2 md:py-3">Suasana Belajar</div>
-            <div class="w-full bg-emerald-600 text-white text-xs md:text-base py-2 md:py-3">Evaluasi</div>
+
+    <div class="mx-10 my-24 text-center" id="galeri">
+        <p class="text-2xl font-medium text-indigo-900">GALERI</p>
+        <div class="grid grid-flow-row gap-2 justify-items-center mt-14 mx-12 md:grid-flow-col">
+            <div class="w-36 bg-emerald-600 text-white md:w-48">Ruang Kelas</div>
+            <div class="w-36 bg-emerald-600 text-white md:w-48">Suasana Belajar</div>
+            <div class="w-36 bg-emerald-600 text-white md:w-48">Evaluasi</div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 mx-2 md:mx-8 mt-8 md:mt-14">
-            <img class="w-full h-48 md:h-80 object-cover" src="images/kelas_1.jpg" alt="Kelas 1">
-            <img class="w-full h-48 md:h-80 object-cover" src="images/kelas_2.jpeg" alt="Kelas 2">
-            <img class="w-full h-48 md:h-80 object-cover" src="images/kelas_3.jpeg" alt="Kelas 3">
+        <div class="grid grid-flow-row justify-items-center gap-2 mx-8 mt-14 md:grid-flow-col">
+            <img class="w-[60rem] h-80" src="images/kelas_1.jpg" alt="">
+            <img class="w-[60rem] h-80" src="images/kelas_2.jpeg" alt="">
+            <img class="w-[60rem] h-80" src="images/kelas_3.jpeg" alt="">
         </div>
     </div>
 

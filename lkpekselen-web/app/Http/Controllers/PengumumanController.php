@@ -30,7 +30,7 @@ class PengumumanController extends Controller
             'tanggal_pengumuman' => Carbon::now()->toDateString(),
         ]);
 
-        return redirect()->route('inbox')->with('Success', 'Pengumuman berhasil ditambahkan.');
+        return redirect()->route('pengumuman.index')->with('Success', 'Pengumuman berhasil ditambahkan.');
     }
     public function edit($id){
         $pengumuman = Pengumuman::findOrFail($id);
@@ -44,14 +44,14 @@ class PengumumanController extends Controller
         $pengumuman = Pengumuman::findOrFail($id);
         $pengumuman->update($request->all());
 
-        return redirect()->route('inbox')->with('Success', 'Pengumuman berhasil diupdate.');
+        return redirect()->route('pengumuman.index')->with('Success', 'Pengumuman berhasil diupdate.');
     }
     public function destroy($id)
     {
         $pengumuman = Pengumuman::findOrFail($id);
         $pengumuman->delete();
 
-        return redirect()->route('inbox')
+        return redirect()->route('pengumuman.index')
             ->with('success', 'Pengumuman berhasil dihapus.');
     }
 
