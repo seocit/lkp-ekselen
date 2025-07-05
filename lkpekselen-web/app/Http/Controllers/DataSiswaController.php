@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class DataSiswaController extends Controller
 {
-    public function index(Request $request)
+public function index(Request $request)
     {
     $list_program = ProgramPelatihan::all();
 
@@ -23,7 +23,7 @@ class DataSiswaController extends Controller
     // 🎯 Filter program
     if ($request->filled('id_program')) {
         $query->whereHas('calonSiswa.kelas_choice', function ($q) use ($request) {
-            $q->where('id_program', $request->id_program);
+                            $q->where('id_program', $request->id_program);
         });
     }
 

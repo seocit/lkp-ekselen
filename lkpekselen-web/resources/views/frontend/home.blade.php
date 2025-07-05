@@ -1,4 +1,4 @@
-@extends('layout.app')
+s@extends('layout.app')
 @section('title', 'Home')
 @section('content')
     <div class="relative px-5 py-20 md:py-32 bg-center bg-cover bg-no-repeat md:px-20" 
