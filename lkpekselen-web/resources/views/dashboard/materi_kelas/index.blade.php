@@ -6,10 +6,13 @@
 <div class="max-w-3xl mx-auto">
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-xl font-semibold">Daftar Materi</h1>
+        @can('manage_materi')
+        {{-- Button Tambah Materi --}}
         <a href="{{ route('materi.create') }}"
            class="bg-purple-300 text-purple-900 font-semibold px-4 py-2 rounded-full hover:bg-purple-400 transition">
             + Tambah Materi
-        </a>
+        </a>           
+        @endcan
     </div>
 
     {{-- Form Filter --}}
@@ -34,6 +37,7 @@
                     <p class="text-sm text-gray-500">{{ $item->kelas->nama_kelas }}</p>
                 </div>
                 <div class="flex space-x-2">
+                    @can('manage_materi')
                     <a href="{{ route('materi.edit', $item->id) }}"
                         class="bg-yellow-400 text-white p-2 rounded hover:bg-yellow-500 transition flex items-center"
                         title="Edit materi">
@@ -52,6 +56,10 @@
                             </svg>
                         </button>
                     </form>
+                        
+                    @endcan
+
+
                     <a href="{{ route('materi.download', $item->id) }}"
                         class="bg-purple-600 text-white p-2 rounded hover:bg-purple-700 transition flex items-center"
                         title="Download file">

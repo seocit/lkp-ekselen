@@ -35,30 +35,41 @@
                     <span>Inbox</span>
                     {{-- <span class="ml-auto bg-gray-300 rounded-full px-2 text-xs">6</span> --}}
                 </a>
-                {{-- <a href="{{ route('materi.index') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
+                
+                <a href="{{ route('materi.index') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
                     <span>Materi</span>
                 </a>
-                <a href="{{ route('pembayaran spp')}}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
+
+                <a href="{{ route('pembayaran_spp') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
                     <span>Pembayaran</span>
                 </a>
+                @can('view_data_siswa')
                 <a href="{{ route('data-siswa.index') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
                     <span>Siswa</span>
-                </a>
-                <a href="{{ route('calon_siswa.list') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
+                </a>                   
+                @endcan
+                @can('view_calon_siswa')
+                <a href="{{ route('calon-siswa.list') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
                     <span>  Calon Siswa</span>
-                </a>
-                <a href="{{ route('bukti pembayaran') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
+                </a>                
+                @endcan
+                @can('view_tambah_siswa')
+                <a href="{{ route('bukti-pembayaran-siswa') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
                     <span>Bukti Pembayaran Siswa</span>
                 </a>
-                <a href="{{ route('add.siswa') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
+                    
+                @endcan
+                @can('view_tambah_siswa')
+                <a href="{{ route('tambah-siswa') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
                     <span>Tambah Siswa</span>
-                </a> --}}
+                </a>                    
+                @endcan
             </nav>
         </aside>
 

@@ -11,7 +11,7 @@
         <h1 class="text-lg font-semibold">Profile Siswa</h1>
         <div class="grid grid-cols-2 gap-4 text-gray-700">
             @if ($siswa)
-                <div>Nama</div>
+            <div>Nama</div>
             <div>{{ $siswa->calonSiswa->nama_siswa}}</div>
 
             <div>Alamat</div>
@@ -40,17 +40,17 @@
 
             <div>Status Siswa</div>
             <form action="{{ route('data-siswa.update-status', $siswa->id) }}" method="POST">
-            @csrf
-            @method('PUT')
+                @csrf
+                @method('PUT')
 
-            <div>
-                <select name="status" id="status" class="border border-gray-300 rounded px-2 py-1">
-                    <option value="aktif" {{ $siswa->status == 'aktif' ? 'selected' : '' }}>aktif</option>
-                    <option value="nonaktif" {{ $siswa->status == 'nonaktif' ? 'selected' : '' }}>nonaktif</option>
-                </select>
+                <div>
+                    <select name="status" id="status" class="border border-gray-300 rounded px-2 py-1">
+                        <option value="aktif" {{ $siswa->status == 'aktif' ? 'selected' : '' }}>aktif</option>
+                        <option value="nonaktif" {{ $siswa->status == 'nonaktif' ? 'selected' : '' }}>nonaktif</option>
+                    </select>
 
-                <button type="submit" class="ml-2 px-4 py-1 bg-blue-600 text-white rounded">Simpan</button>
-            </div>
+                    <button type="submit" class="ml-2 px-4 py-1 bg-blue-600 text-white rounded">Simpan</button>
+                </div>
             </form>
             @else
                 <p>Tidak ada data siswa.</p>

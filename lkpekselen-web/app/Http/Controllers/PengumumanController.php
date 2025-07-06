@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class PengumumanController extends Controller
 {
     public function index(){
+        
         $pengumuman = Pengumuman::orderBy('created_at', 'desc')->get();
 
         // dd($pengumuman->first());

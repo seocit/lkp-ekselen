@@ -97,7 +97,7 @@ foreach ($groupedChart as $program => $items) {
         $siswa->status = $request->status;
         $siswa->save();
 
-        return redirect()->route('siswa_program.index')->with('success', 'Status diperbarui.');
+        return redirect()->route('data-siswa.index')->with('success', 'Status diperbarui.');
     }
 
 

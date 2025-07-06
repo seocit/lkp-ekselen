@@ -135,7 +135,7 @@ class CalonSiswaController extends Controller
         ]);
 
         // Redirect ke halaman pembayaran
-        return redirect()->route('data calon siswa')
+        return redirect()->route('tambah-siswa')
             ->with('success', 'Pendaftaran berhasil. Silakan lanjutkan ke pembayaran!');
     }
     public function promoteToSiswa(Request $request)

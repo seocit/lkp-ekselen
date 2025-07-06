@@ -2,16 +2,20 @@
 @section('title', 'Inbox')
 @section('content')
     <div class="space-y-4">
+        @can('manage_pengumuman')
         <button type="button" onclick="window.location.href='{{ route('pengumuman.create')}}'"
         class="bg-purple-300 text-purple-900 font-semibold px-4 py-2 rounded-full hover:bg-purple-400 transition">
             Buat Pengumuman
         </button>
+            
+        @endcan
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             @foreach($pengumuman as $item)
             <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 relative">
                 <div class="flex justify-between items-start mb-2">
                     <h3 class="font-semibold text-gray-800">{{ $item->judul}}</h3>
+                    @can('manage_pengumuman')
                     <div class="flex space-x-3 text-gray-600">
                         <!-- Trash Icon -->
                         <button type="button"
@@ -29,6 +33,8 @@
                             </svg>
                         </button>
                     </div>
+                        
+                    @endcan
                 </div>
                 <p class="text-gray-700 text-sm">
                     {{ $item->isi }}

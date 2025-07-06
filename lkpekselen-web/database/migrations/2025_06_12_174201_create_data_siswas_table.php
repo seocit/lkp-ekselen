@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreign('id_kelas')->references('id')->on('kelas_programs')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('id_session')->references('id')->on('pilihan_sessions')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('id_jadwal')->references('id')->on('pilihan_jadwals')->restrictOnDelete()->restrictOnUpdate();
-            $table->date('tanggal_masuk');
+            $table->date('tanggal_masuk')->nullable();
             $table->timestamps();
         });
     }

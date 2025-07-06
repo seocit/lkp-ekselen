@@ -4,7 +4,7 @@
 <div class="max-w-3xl mx-auto">
     <h1 class="text-xl font-semibold mb-6">List Calon Siswa</h1>
 
-<form method="GET" action="{{ route('calon_siswa.list') }}" class="mb-4 flex gap-4">
+<form method="GET" action="{{ route('calon-siswa.list') }}" class="mb-4 flex gap-4">
     <input type="text" name="search" placeholder="Cari nama..." value="{{ request('search') }}"
         class="border border-gray-300 rounded px-3 py-2" />
 
