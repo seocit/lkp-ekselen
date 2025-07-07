@@ -41,8 +41,7 @@
         <input type="hidden" name="tipe_pembayaran" value="spp">
 
         <label class="block text-left text-sm text-gray-700 font-medium">Upload Bukti Transfer SPP</label>
-        <input type="file" name="bukti_transfer" required
-            class="w-full border border-gray-300 rounded px-3 py-2 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-blue-500 file:text-white hover:file:bg-blue-600">
+        <input type="file" name="bukti_transfer" required class="w-full border border-gray-300 rounded px-3 py-2 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-blue-500 file:text-white hover:file:bg-blue-600">
 
         <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded font-semibold">
              Kirim Bukti Pembayaran SPP

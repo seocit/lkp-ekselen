@@ -51,7 +51,7 @@ class CalonSiswaController extends Controller
 
         $query = CalonSiswa::with(['kelas_choice.program', 'kategori_kelas', 'Pembayaran_transfer'])
             ->whereDoesntHave('dataSiswa');
-
+        
         
         if ($request->filled('search')) {
             $searchTerm = $request->search;

@@ -15,52 +15,74 @@ use Illuminate\Support\Facades\Storage;
 class MateriController extends Controller
 {
     public function index(Request $request)
-    {
-        $user = auth()->user(); // Ambil user yang sedang login
+{
+    $user = auth()->user(); // Ambil user login
 
-        // Ambil semua kelas + kategori + program
-        $kelas_program = KelasProgram::with(['kategori', 'program'])
-            ->get()
-            ->map(function ($kelas) {
-                $kelas->label_unik = $kelas->nama_kelas . ($kelas->kategori ? ' - ' . $kelas->kategori->nama_kategori : '');
-                return $kelas;
-            })
-            ->unique('label_unik')
-            ->values();
+    $searchTerm = $request->input('search');
+    $selectedKelasId = $request->input('kelas');
 
-        $selectedKelasId = $request->input('kelas');
+    // Ambil semua kelas + kategori + program (untuk dropdown filter)
+    $kelas_program = KelasProgram::with(['kategori', 'program'])
+        ->get()
+        ->map(function ($kelas) {
+            $kelas->label_unik = $kelas->nama_kelas . ($kelas->kategori ? ' - ' . $kelas->kategori->nama_kategori : '');
+            return $kelas;
+        })
+        ->unique('label_unik')
+        ->values();
 
-        // 🔒 Cek apakah user adalah siswa
-        if ($user->hasRole('siswa')) {
-            // Ambil kelas milik siswa (pastikan relasi `dataSiswa` dan `kelas_choice` ada)
-            $idKelasSiswa = optional($user->calonSiswa->kelas_choice)->id;
+    // 🔐 Jika user adalah siswa
+    if ($user->hasRole('siswa')) {
+        // Ambil ID kelas siswa (pastikan relasi `calonSiswa.kelas_choice` tersedia)
+        $idKelasSiswa = optional($user->calonSiswa->kelas_choice)->id;
 
-            // Jika siswa mencoba akses kelas lain, batasi
-            if ($selectedKelasId && $selectedKelasId != $idKelasSiswa) {
-                abort(403, 'Anda tidak memiliki akses ke kelas ini.');
-            }
-
-            // Ambil materi hanya untuk kelas milik siswa
-            $materi = Materi::with('kelas')
-                ->where('id_kelas', $idKelasSiswa)
-                ->get();
-
-            $selectedKelasId = $idKelasSiswa; // untuk keperluan highlight di dropdown (jika ada)
-        } else {
-            // Jika admin, tampilkan semua materi (bisa filter kelas jika ada)
-            $materi = Materi::with('kelas')
-                ->when($selectedKelasId, function ($query) use ($selectedKelasId) {
-                    $query->where('id_kelas', $selectedKelasId);
-                })
-                ->get();
+        // Cegah akses ke kelas lain
+        if ($selectedKelasId && $selectedKelasId != $idKelasSiswa) {
+            abort(403, 'Anda tidak memiliki akses ke kelas ini.');
         }
 
-        return view('dashboard.materi_kelas.index', [
-            'materi' => $materi,
-            'kelas_program' => $kelas_program,
-            'selectedKelasId' => $selectedKelasId,
-        ]);
+        $query = Materi::with('kelas')
+            ->where('id_kelas', $idKelasSiswa);
+
+        if ($searchTerm) {
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('nama_materi', 'like', "%$searchTerm%")
+                  ->orWhere('deskripsi', 'like', "%$searchTerm%");
+            });
+        }
+
+        $materi = $query->get();
+        $selectedKelasId = $idKelasSiswa;
     }
+
+    // 🧑‍💼 Jika user adalah admin
+    else {
+        $query = Materi::with('kelas');
+
+        if ($selectedKelasId) {
+            $query->where('id_kelas', $selectedKelasId);
+        }
+
+        if ($searchTerm) {
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('nama_materi', 'like', "%$searchTerm%")
+                  ->orWhere('deskripsi', 'like', "%$searchTerm%")
+                  ->orWhereHas('kelas', function ($kelasQuery) use ($searchTerm) {
+                      $kelasQuery->where('nama_kelas', 'like', "%$searchTerm%");
+                  });
+            });
+        }
+
+        $materi = $query->get();
+    }
+
+    return view('dashboard.materi_kelas.index', [
+        'materi' => $materi,
+        'kelas_program' => $kelas_program,
+        'selectedKelasId' => $selectedKelasId,
+    ]);
+}
+
 
     // public function index(Request $request)
     // {

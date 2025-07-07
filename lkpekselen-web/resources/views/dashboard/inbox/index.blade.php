@@ -14,7 +14,7 @@
             @foreach($pengumuman as $item)
             <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 relative">
                 <div class="flex justify-between items-start mb-2">
-                    <h3 class="font-semibold text-gray-800">{{ $item->judul}}</h3>
+                    <h3 class="font-semibold text-gray-800"><strong> {{ $item->judul}} </strong></h3>
                     @can('manage_pengumuman')
                     <div class="flex space-x-3 text-gray-600">
                         <!-- Trash Icon -->
@@ -36,11 +36,11 @@
                         
                     @endcan
                 </div>
-                <p class="text-gray-700 text-sm">
+                <p class="text-gray-900 text-sm mb-10">
                     {{ $item->isi }}
                 </p>
-                <p class="text-gray-700 text-sm italic">
-                    {{ $item->tanggal_pengumuman }}
+                <p class="text-gray-400 text-sm italic">
+                    Uploaded | {{ $item->tanggal_pengumuman }}
                 </p>
             </div>
             @endforeach

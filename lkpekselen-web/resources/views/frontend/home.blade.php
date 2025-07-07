@@ -1,30 +1,55 @@
 @extends('layout.app')
 @section('title', 'Home')
 @section('content')
-    <div class="px-5 py-40 bg-teal-600 md:px-40">
-            <article class="text-wrap w-[31rem]">
-                <p class="text-4xl text-white font-bold">ENGLISH COURSE</p>
-                <p class="text-xl text-white my-8">Our experienced instructure will help you to improve your language skills in a fun and interactive environment. Our courses cover speaking, writing, and grammar fundamental.</p>
-            </article>
-            <button type="button" onclick="window.location.href='{{ route('bing') }}'" class="bg-white rounded-xl p-4">SHOW MORE</button>
+    <div class="relative bg-teal-600">
+        <!-- Background image -->
+        <div 
+            class="absolute inset-0 bg-cover bg-center" 
+            style="background-image: url('/images/hero_section.jpg');">
+        </div>
+
+        <!-- Overlay hitam transparan -->
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+
+        <!-- Konten hero -->
+        <div class="relative px-5 py-40 md:px-40">
+            <div class="max-w-4xl text-left text-white">
+                <article>
+                    <p class="text-4xl font-bold">ENGLISH COURSE</p>
+                    <p class="text-xl my-8">
+                        Our experienced instructors will help you improve your language skills in a fun and interactive environment.
+                        Our courses cover speaking, writing, and grammar fundamentals.
+                    </p>
+                </article>
+                <button 
+                    type="button" 
+                    onclick="window.location.href='{{ route('bing') }}'" 
+                    class="bg-white text-teal-600 font-semibold rounded-xl px-6 py-3 hover:bg-gray-100 transition"
+                >
+                    SHOW MORE
+                </button>
+            </div>
+        </div>
     </div>
+
 
     <div class="mx-10 my-24 text-center md:mx-64">
         <p class="text-3xl font-medium text-indigo-900 py-10">ABOUT</p>
         <p class="text-lg text-gray-600">Bimbingan belajar (Bimbel) adalah sebuah kebutuhan yang penting di masa sekarang. Materi pelajaran yang relatif sulit dan tuntutan dari sekolah untuk mencapai standar nilai minimal membuat para siswa perlu mendapatkan bimbingan/les diluar jam sekolah.</p>
         <div class="grid grid-flow-row justify-items-center gap-10 mt-14 md:grid-flow-col">
             <div class="w-48">
-                <div class="bg-emerald-600">01</div>
+                <img src="/images/akreditasi.png" alt="Akreditasi Icon" class="mx-auto mb-4 w-20 h-20 object-contain" />
+
                 <p class="text-xl font-medium text-indigo-900">Akreditasi</p>
                 <p class="text-gray-600">LKP/LPK Ekselen Sudah Terakreditasi B</p>
             </div>
             <div class="w-48">
-                <div class="bg-emerald-600">02</div>
+                 <img src="/images/exam.png" alt="Akreditasi Icon" class="mx-auto mb-4 w-20 h-20 object-contain" />
                 <p class="text-xl font-medium text-indigo-900">Evaluasi dan Ujian</p>
                 <p class="text-gray-600">Evaluasi diadakan pada pertengahan program dan ujian kenaikan diadakan pada setiap akhir program</p>
             </div>
             <div class="w-48">
-                <div class="bg-emerald-600">03</div>
+                 <img src="/images/schedule.png" alt="Akreditasi Icon" class="mx-auto mb-4 w-20 h-20 object-contain" />
                 <p class="text-xl font-medium text-indigo-900">Frekuensi Kursus</p>
                 <p class="text-gray-600">Kegiatan kursus dikelas berlangsung 3x/ minggu. Program pelatihan setiap paket/tingkat berlangsung 5 bulan.</p>
             </div>
@@ -44,9 +69,7 @@
                             <h3 class="text-gray-800 font-semibold">English Program 1</h3>
                             <p class="text-gray-500 text-sm mt-1">3X Seminggu</p>
                         </div>
-                        <div class="w-7 h-7 bg-emerald-900 rounded-full flex items-center justify-center text-white text-sm mt-1">
-                            &gt;
-                        </div>
+                        
                     </li>
 
                     <li class="flex justify-between items-start bg-white p-4 rounded-xl shadow">
@@ -54,9 +77,7 @@
                             <h3 class="text-gray-800 font-semibold">English Program 2</h3>
                             <p class="text-gray-500 text-sm mt-1">2X Seminggu</p>
                         </div>
-                        <div class="w-7 h-7 bg-emerald-900 rounded-full flex items-center justify-center text-white text-sm mt-1">
-                            &gt;
-                        </div>
+                        
                     </li>
 
                     <li class="flex justify-between items-start bg-white p-4 rounded-xl shadow">
@@ -64,9 +85,7 @@
                             <h3 class="text-gray-800 font-semibold">TOEFL</h3>
                             <p class="text-gray-500 text-sm mt-1">30 Jam Belajar</p>
                         </div>
-                        <div class="w-7 h-7 bg-emerald-900 rounded-full flex items-center justify-center text-white text-sm mt-1">
-                            &gt;
-                        </div>
+                        
                     </li>
                 </ul>
             </div>
@@ -77,33 +96,13 @@
                 <ul class="space-y-4">
                     <li class="flex justify-between items-start bg-white p-4 rounded-xl shadow">
                         <div class="flex flex-col text-left">
-                            <h3 class="text-gray-800 font-semibold">English Program 1</h3>
-                            <p class="text-gray-500 text-sm mt-1">3X Seminggu</p>
+                            <h3 class="text-gray-800 font-semibold">Bimbingan Kelas 4, 5, 6 SD</h3>
+                            <p class="text-gray-500 text-sm mt-1">1 Tahun</p>
                         </div>
-                        <div class="w-7 h-7 bg-emerald-900 rounded-full flex items-center justify-center text-white text-sm mt-1">
-                            &gt;
-                        </div>
+                        
                     </li>
 
-                    <li class="flex justify-between items-start bg-white p-4 rounded-xl shadow">
-                        <div class="flex flex-col text-left">
-                            <h3 class="text-gray-800 font-semibold">English Program 2</h3>
-                            <p class="text-gray-500 text-sm mt-1">2X Seminggu</p>
-                        </div>
-                        <div class="w-7 h-7 bg-emerald-900 rounded-full flex items-center justify-center text-white text-sm mt-1">
-                            &gt;
-                        </div>
-                    </li>
-
-                    <li class="flex justify-between items-start bg-white p-4 rounded-xl shadow">
-                        <div class="flex flex-col text-left">
-                            <h3 class="text-gray-800 font-semibold">TOEFL</h3>
-                            <p class="text-gray-500 text-sm mt-1">30 Jam Belajar</p>
-                        </div>
-                        <div class="w-7 h-7 bg-emerald-900 rounded-full flex items-center justify-center text-white text-sm mt-1">
-                            &gt;
-                        </div>
-                    </li>
+                   
                 </ul>
             </div>
 
@@ -113,33 +112,21 @@
                 <ul class="space-y-4">
                     <li class="flex justify-between items-start bg-white p-4 rounded-xl shadow">
                         <div class="flex flex-col text-left">
-                            <h3 class="text-gray-800 font-semibold">English Program 1</h3>
-                            <p class="text-gray-500 text-sm mt-1">3X Seminggu</p>
+                            <h3 class="text-gray-800 font-semibold">Software Perkantoran</h3>
+                            <p class="text-gray-500 text-sm mt-1">1 Bulan</p>
                         </div>
-                        <div class="w-7 h-7 bg-emerald-900 rounded-full flex items-center justify-center text-white text-sm mt-1">
-                            &gt;
-                        </div>
+                        
                     </li>
 
                     <li class="flex justify-between items-start bg-white p-4 rounded-xl shadow">
                         <div class="flex flex-col text-left">
-                            <h3 class="text-gray-800 font-semibold">English Program 2</h3>
-                            <p class="text-gray-500 text-sm mt-1">2X Seminggu</p>
+                            <h3 class="text-gray-800 font-semibold">Desain Grafis</h3>
+                            <p class="text-gray-500 text-sm mt-1">1 Bulan</p>
                         </div>
-                        <div class="w-7 h-7 bg-emerald-900 rounded-full flex items-center justify-center text-white text-sm mt-1">
-                            &gt;
-                        </div>
+                        
                     </li>
 
-                    <li class="flex justify-between items-start bg-white p-4 rounded-xl shadow">
-                        <div class="flex flex-col text-left">
-                            <h3 class="text-gray-800 font-semibold">TOEFL</h3>
-                            <p class="text-gray-500 text-sm mt-1">30 Jam Belajar</p>
-                        </div>
-                        <div class="w-7 h-7 bg-emerald-900 rounded-full flex items-center justify-center text-white text-sm mt-1">
-                            &gt;
-                        </div>
-                    </li>
+                    
                 </ul>
             </div>
 

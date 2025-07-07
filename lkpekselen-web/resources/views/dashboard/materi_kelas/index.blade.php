@@ -4,6 +4,15 @@
 
 @section('content')
 <div class="max-w-3xl mx-auto">
+
+    <form method="GET" action="{{ route('materi.index') }}" class="mb-4 flex gap-4">
+    <input type="text" name="search" placeholder="Cari nama..." value="{{ request('search') }}"
+        class="border border-gray-300 rounded px-3 py-2" />
+
+    <button type="submit" class="bg-purple-300 text-purple-900 font-semibold px-4 py-2 rounded-full hover:bg-purple-400 transition">Search</button>
+    </form>
+
+
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-xl font-semibold">Daftar Materi</h1>
         @can('manage_materi')

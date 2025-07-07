@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use auth;
 use App\Models\Materi;
 use App\Models\CalonSiswa;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\PembayaranTransfer;
 use App\Http\Controllers\Controller;
@@ -26,7 +27,8 @@ class PembayaranController extends Controller
             'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $path = $request->file('bukti_transfer')->store('bukti_transfer', 'public');
+        $filename = now()->format('Y-m') . '_' . Str::random(8) . '.' . $request->file('bukti_transfer')->getClientOriginalExtension();
+        $path = $request->file('bukti_transfer')->storeAs('bukti_transfer', $filename, 'public');
 
         PembayaranTransfer::create([
             'tipe_pembayaran' => $request->tipe_pembayaran,
@@ -68,10 +70,19 @@ class PembayaranController extends Controller
         $request->validate([
             // Hapus 'tipe_pembayaran' dari validasi karena kita akan set secara manual
             'id_refrensi' => 'required|uuid',
-            'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'bukti_transfer' => 'required|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $path = $request->file('bukti_transfer')->store('bukti_transfer', 'public');
+        // $filename = now()->format('Y-m') . '_' . Str::random(8) . '.' . $request->file('bukti_transfer')->getClientOriginalExtension();
+        // $path = $request->file('bukti_transfer')->storeAs('bukti_transfer', $filename, 'public');
+        // dd($request->all());
+
+        $bukti = $request->file('bukti_transfer');
+        $filename = date('Y-m-d').$bukti->getClientOriginalName();
+        $path = 'bukti_transfer/'.$filename;
+
+
+        Storage::disk('public')->put($path, file_get_contents($bukti));
 
         PembayaranTransfer::create([
             'tipe_pembayaran' => 'spp', // <-- Diset langsung di sini
@@ -89,12 +100,11 @@ class PembayaranController extends Controller
 
         $filePath = $pembayaran->bukti_transfer;
 
-        // Cek file ada atau tidak
-        if (!$filePath || !Storage::disk('public')->exists($filePath)) {
+        if (!Storage::disk('public')->exists($filePath)) {
             return back()->with('error', 'File tidak ditemukan.');
         }
 
-        return Storage::disk('public')->download($filePath);
+        return response()->download(storage_path('app/public/' . $filePath));
     }
     
     public function view($id)
@@ -113,7 +123,7 @@ class PembayaranController extends Controller
 
     public function showPembayaran()
     {         
-        $pembayarans = PembayaranTransfer::with(['calonSiswa.kelas_choice'])->get();        
+        $pembayarans = PembayaranTransfer::with(['calonSiswa.kelas_choice'])->latest()->get();        
         return view('dashboard.bukti_pembayaran', compact('pembayarans'));
     }
 
