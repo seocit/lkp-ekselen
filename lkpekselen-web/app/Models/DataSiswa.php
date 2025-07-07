@@ -20,8 +20,8 @@ class DataSiswa extends Model
     {
         return $this->belongsTo(CalonSiswa::class, 'id_calon_siswa');
     }
-    public function user(){
-        return $this->hasOne(User::class, 'id_siswa');
-    }
+    // public function user(){
+    //     return $this->hasOne(User::class, 'id_siswa');
+    // }
 
 }

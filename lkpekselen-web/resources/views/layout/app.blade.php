@@ -35,6 +35,16 @@
                 <a href="{{ route('about')}}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">ABOUT</a>
                 <a href="{{ route('home')}}#kursus" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">KURSUS</a>
                 <a href="{{ route('home')}}#galeri" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">GALERI</a>
+                @if (Route::has('login'))
+                  @auth
+                    <div class="w-full flex justify-center">
+                        <a href="{{route('pendaftaran.status', Auth::user()->id)}}" class="inline-block whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">
+                            CEK PENDAFTARAN
+                        </a>
+                    </div>
+                  @endauth
+                @endif
+                
                 <a href="#">
                   <li class="relative list-none">
                       <button id="dropdownPendaftaranButton" type="button"
@@ -75,7 +85,29 @@
             </div>
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">MASUK</a>
+
+              @if (Route::has('login'))
+
+                @auth
+                
+                @can('view_dashboard')
+                <a href="{{ route('pengumuman.index') }}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">DASHBOARD</a>                
+                @endcan
+                <form method="POST" action="{{ route('logout')}}">
+                  @csrf
+                  <button type="submit" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">
+                      LOGOUT
+                  </button>
+                </form>
+
+                @else 
+                <a href="{{route('login')}}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">MASUK</a>
+                @if (Route::has('register'))               
+                  <a href="{{route('register')}}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">REGISTER</a>
+                  @endif
+                @endauth
+                
+              @endif
               {{-- <button type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
                 <span class="absolute -inset-1.5"></span>
                 <span class="sr-only">View notifications</span>

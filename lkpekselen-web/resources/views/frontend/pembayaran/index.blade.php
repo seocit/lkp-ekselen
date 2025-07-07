@@ -8,8 +8,14 @@
         <img src="{{ asset('images/logo_ekselen-1.png') }}" alt="Logo Ekselen" class="h-24 w-24 object-contain" />
     </div>
     <div class="text-gray-700">
-        <p class="font-semibold mb-2">Formulir Pendaftaran</p>
+        <div class="flex items-center justify-between mb-4">
+            <p class="font-semibold text-lg">Formulir Pendaftaran</p>
+            
+        </div>
         <div class="grid grid-cols-2 gap-4 mb-6">
+            <div>No Registrasi</div>
+            <div>{{ $pendaftar->no_registrasi}}</div>
+            
             <div>Nama</div>
             <div>{{ $pendaftar->nama_siswa}}</div>
 
@@ -33,20 +39,20 @@
         </div>
         <div class="text-center mb-5">
             <p class="mb-6 text-gray-700 font-semibold">
-                Terima kasih Sudah Mendaftar, Silahkan datang ke alamat berikut :
+                Terima kasih Sudah Mendaftar,Screenshoot No Registrasi dan Silahkan datang ke alamat berikut :
             </p>
             <div>
                 <img src="{{ asset('images/maps_ekselen_sako.png')}}" class="w-80 h-40 object-cover mx-auto" alt="Map 1"/>
                 <a href="https://g.co/kgs/1C86YFe" target="_blank" class="text-blue-600 hover:underline block mt-2">LINK GMAPS EKSELEN!</a>
                 <p class="mb-6 text-gray-700 font-semibold">Atau Klik dibawah untuk melakukan pembayaran transfer :</p>
-                <p class="mb-2 font-semibold">BNI XXXXXXXXX</p>
+                <p class="mb-2 font-semibold">BNI 137490079</p>
             </div>
         </div>
-        @if ($pendaftar->pembayaran)
+    @if ($pendaftar->pembayaran_transfer)
     <div class="text-center text-green-600 font-semibold mb-4">
         Bukti transfer telah diunggah.
     </div>
-@else
+    @else
     <form action="{{ route('pembayaran.transfer.store') }}" method="POST" enctype="multipart/form-data" class="mt-4 space-y-4">
         @csrf
 
@@ -62,7 +68,7 @@
             Kirim Bukti Pembayaran
         </button>
     </form>
-@endif
+    @endif
 
 
         <div class="flex justify-between space-x-4">

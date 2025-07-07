@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('calon_siswas', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
+            $table->string('no_registrasi')->unique();
             $table->string('nama_siswa', 30);
             $table->string('alamat', 100);
             $table->string('no_wa', 14);
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->uuid('id_kelas');
             $table->uuid('id_session');
             $table->uuid('id_jadwal');
+            $table->foreignid('user_id')->constrained()->onDelete('cascade');
             $table->foreign('id_kelas')->references('id')->on('kelas_programs')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('id_session')->references('id')->on('pilihan_sessions')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('id_jadwal')->references('id')->on('pilihan_jadwals')->restrictOnDelete()->restrictOnUpdate();

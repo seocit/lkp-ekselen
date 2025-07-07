@@ -27,10 +27,10 @@
             @foreach ($list_calon_siswa as $item)
             <div class="flex justify-between items-start border border-gray-300 rounded-lg p-4">
                 <div class="space-y-1">
-                <p class="font-semibold text-base">{{ $item->nama_siswa }}</p>
+                <p class="font-semibold text-base">{{ $item->nama_siswa }} - {{$item->no_registrasi}}</p>
 
                 <p class="text-sm text-gray-600">
-                    {{ $item->kelas_choice->program->nama_program ?? '-' }} -
+                    {{ $item->kelas_choice->program->nama_program ?? '-' }} -   
                     {{ $item->kelas_choice->nama_kelas ?? '-' }}
                 </p>
 
@@ -42,8 +42,8 @@
                     {{ $item->tanggal_daftar }}
                 </p>
 
-                @if ($item->pembayaran_transfer && $item->pembayaran_transfer->bukti_transfer)
-                    <a href="{{ asset('storage/' . $item->pembayaran_transfer->bukti_transfer) }}"
+                {{-- @if ($item->pembayaran_transfer && $item->pembayaran_transfer->bukti_transfer)
+                    <a href="{{ route('view-bukti-pembayaran', $item->pembayaran_transfer->id) }}"
                        target="_blank"
                        class="inline-block mt-2 bg-purple-300 text-purple-900 font-semibold px-4 py-1.5 rounded-full text-sm hover:bg-purple-400 transition">
                         🔍 Lihat Bukti Transfer
@@ -52,7 +52,7 @@
                     <span class="text-sm text-gray-400 italic block mt-2">
                         Tidak ada bukti transfer
                     </span>
-                @endif
+                @endif --}}
             </div>
 
             {{-- Checkbox --}}

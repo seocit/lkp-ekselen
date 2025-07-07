@@ -6,7 +6,7 @@
                 <p class="text-4xl text-white font-bold">ENGLISH COURSE</p>
                 <p class="text-xl text-white my-8">Our experienced instructure will help you to improve your language skills in a fun and interactive environment. Our courses cover speaking, writing, and grammar fundamental.</p>
             </article>
-            <button type="button" class="bg-white rounded-xl p-4">SHOW MORE</button>
+            <button type="button" onclick="window.location.href='{{ route('bing') }}'" class="bg-white rounded-xl p-4">SHOW MORE</button>
     </div>
 
     <div class="mx-10 my-24 text-center md:mx-64">

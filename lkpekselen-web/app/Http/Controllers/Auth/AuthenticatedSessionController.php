@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = auth()->user();
 
-        return redirect()->intended(route('pengumuman.index', absolute: false));
+        return redirect()->intended(route('home', absolute: false));
     }
 
     /**

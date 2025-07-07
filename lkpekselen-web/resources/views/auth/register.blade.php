@@ -50,7 +50,7 @@
         </div>
 
         <!-- Role Selector -->
-        <div class="mt-4">
+        {{-- <div class="mt-4">
             <x-input-label for="role" :value="__('Daftar Sebagai')" />
             <select name="role" id="role" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" required>
                 <option value="" disabled {{ old('role') ? '' : 'selected' }}>Pilih Role</option>
@@ -58,7 +58,7 @@
                 <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
             </select>
             <x-input-error :messages="$errors->get('role')" class="mt-2" />
-        </div>
+        </div> --}}
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">

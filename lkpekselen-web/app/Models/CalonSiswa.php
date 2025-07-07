@@ -11,6 +11,8 @@ class CalonSiswa extends Model
     protected $table = 'calon_siswas';
      protected $fillable = [
         'id',
+        'no_registrasi',
+        'user_id',
         'nama_siswa',
         'alamat',
         'no_wa',
@@ -47,6 +49,11 @@ class CalonSiswa extends Model
         return $this->hasOne(PembayaranTransfer::class, 'id_refrensi', 'id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
+    
 
 }

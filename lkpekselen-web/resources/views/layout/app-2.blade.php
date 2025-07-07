@@ -61,8 +61,7 @@
                 <a href="{{ route('bukti-pembayaran-siswa') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/></svg>
                     <span>Bukti Pembayaran Siswa</span>
-                </a>
-                    
+                </a>                    
                 @endcan
                 @can('view_tambah_siswa')
                 <a href="{{ route('tambah-siswa') }}" class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">

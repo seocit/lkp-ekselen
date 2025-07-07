@@ -16,7 +16,7 @@
     </div>
 
     {{-- Form Filter --}}
-    <form method="GET" action="{{ route('materi.index') }}" class="mb-6">
+    {{-- <form method="GET" action="{{ route('materi.index') }}" class="mb-6">
         <label for="kelas" class="block text-gray-700 text-sm mb-1">Filter berdasarkan kelas:</label>
         <select name="kelas" class="border border-gray-300 rounded px-3 py-2" onchange="this.form.submit()">
             <option value="">-- Semua Kelas --</option>
@@ -26,7 +26,7 @@
             </option>
             @endforeach
         </select>
-    </form>
+    </form> --}}
 
     {{-- List Materi --}}
     <ul class="space-y-3">

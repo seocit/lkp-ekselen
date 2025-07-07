@@ -16,10 +16,10 @@ class PembayaranTransfer extends Model
 
     protected $fillable = [
         'id',
-    'tipe_pembayaran',
-    'id_refrensi',
-    'bukti_transfer',
-    'status_verifikasi',
+        'tipe_pembayaran',
+        'id_refrensi',
+        'bukti_transfer',
+        'status_verifikasi',
     ];
     protected static function boot()
     {
@@ -30,4 +30,12 @@ class PembayaranTransfer extends Model
             }
         });
     }
+
+    public function calonSiswa()
+    {
+        return $this->belongsTo(CalonSiswa::class, 'id_refrensi', 'id');
+    }
+
+
+   
 }

@@ -10,10 +10,12 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    {   
         Schema::table('users', function (Blueprint $table) {
             $table->string('role')->default('admin');
+            $table->uuid('id_calonSiswa')->nullable()->after('id');
             $table->uuid('id_siswa')->nullable()->after('id');
+            $table->foreign('id_calonSiswa')->references('id')->on('calon_siswas')->restrictOnDelete()->restrictOnUpdate();
             $table->foreign('id_siswa')->references('id')->on('data_siswas')->restrictOnDelete()->restrictOnUpdate();
         });
     }

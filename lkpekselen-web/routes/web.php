@@ -9,13 +9,15 @@ use App\Http\Controllers\MateriController;
     use App\Http\Controllers\PengumumanController;
     use App\Http\Controllers\ProfileController;
     use App\Http\Middleware\IsAdmin;
-    use Illuminate\Support\Facades\Route;
+use App\Models\PembayaranTransfer;
+use Illuminate\Support\Facades\Route;
 
     Route::get('/', function () {
-        return view('welcome');
+        return view('frontend.home');
     });
 
     Route::get('/home', function () {
+        
         return view('frontend.home');
     })->name('home');
 
@@ -43,11 +45,11 @@ use App\Http\Controllers\MateriController;
 
     Route::post('/pendaftaran', [CalonSiswaController::class, 'store'])->name('pendaftaran.store');
 
-    Route::middleware(['auth', IsAdmin::class])->group(function (){
+    Route::middleware(['auth'])->group(function (){
 
         //pengumuman 
         Route::prefix('inbox')->name('pengumuman.')->controller(PengumumanController::class)->group(function() {
-            Route::get('/', 'index')->name('index');
+            Route::get('/', 'index')->name('index')->middleware('can:view_dashboard');
             Route::get('/create', 'create')->name('create')->middleware('can:view_tambah_siswa');
             Route::post('/', 'store')->name('store')->middleware('can:view_tambah_siswa');
             Route::get('/{id}/edit', 'edit')->where('id', '[0-9a-fA-F\-]+')->name('edit')->middleware('can:view_tambah_siswa');
@@ -80,36 +82,39 @@ use App\Http\Controllers\MateriController;
         //dataSiswa end
 
         //pembayaran spp
-        Route::get('pembayaran_spp', function (){
-            return view('dashboard.pembayaran_spp');
-        })->name('pembayaran_spp');
+        
+        Route::get('/pembayaran', [PembayaranController::class, 'indexSpp'])->name('pembayaran_spp');
+        Route::post('/pembayaran/store', [PembayaranController::class, 'storeSpp'])->name('pembayaran.spp.store');
+
+   
         //pembayaran spp end
 
-        //pembayaran siswa
+        //data calon siswa
         Route::get('/data_calon_siswa', [CalonSiswaController::class, 'list_calon_siswa'])->name('calon-siswa.list')->middleware('can:view_calon_siswa');
         
         Route::post('/data_calon_siswa/promote', [CalonSiswaController::class, 'promoteToSiswa'])->name('calon-siswa.promote')->middleware('can:view_calon_siswa');
-        //pembayaran siswa end
-        
-        //bukti pembayaran siswa
-        Route::get('/bukti-pembayaran-siswa', [CalonSiswaController::class, 'index'])->name('bukti-pembayaran-siswa')->middleware('can:view_bukti_pembayaran');
-        //bukti pembayaran siswa end
+        //data calon siswa end
 
+        //cek pendaftaran
+        Route::get('/pendaftaran/status/{id}', [CalonSiswaController::class, 'cekStatus'])->name('pendaftaran.status');
+
+        //cek pendaftaran end
+
+        //bukti pembayaran siswa
+        Route::get('/bukti-pembayaran-siswa', [PembayaranController::class, 'showPembayaran'])->name('bukti-pembayaran-siswa')->middleware('can:view_bukti_pembayaran');
+        Route::get('/download/{id}', [PembayaranController::class, 'download'])->name('download-bukti-pembayaran')->middleware('can:view_bukti_pembayaran');
+        Route::get('/pembayaran/view/{id}', [PembayaranController::class, 'view'])->name('view-bukti-pembayaran');
+        
+        //bukti pembayaran siswa end
+        
         //tambah siswa admin
         Route::get('/tambah-siswa', [CalonSiswaController::class, 'createFromAdmin'])->name('tambah-siswa')->middleware('can:view_tambah_siswa');
         Route::post('/tambah-siswa', [CalonSiswaController::class, 'storeFromAdmin'])->name('tambah-siswa.store')->middleware('can:view_tambah_siswa');
         // tambah siswa admin end
 
-        
-
-       
-
-        
 
     });
     
-   
-
 
     // Route::middleware([IsAdmin::class])->get('/tes-admin', function () {
     //     return 'Halo Admin';
@@ -124,8 +129,6 @@ use App\Http\Controllers\MateriController;
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-
     });
 
     require __DIR__.'/auth.php';

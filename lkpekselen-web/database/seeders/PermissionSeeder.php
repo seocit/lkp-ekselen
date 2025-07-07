@@ -60,6 +60,11 @@ class PermissionSeeder extends Seeder
             
                    
         );
+        $permissions7 = Permission::updateOrCreate(
+            ['name' => 'view_dashboard'],
+            ['name' => 'view_dashboard']
+                 
+        );
         
        
         $role_admin->givePermissionTo($permissions);
@@ -68,6 +73,8 @@ class PermissionSeeder extends Seeder
         $role_admin->givePermissionTo($permissions4);
         $role_admin->givePermissionTo($permissions5);
         $role_admin->givePermissionTo($permissions6);
+        $role_admin->givePermissionTo($permissions7);
+        $role_siswa->givePermissionTo($permissions7);
         
         $user = User::find(1);
         

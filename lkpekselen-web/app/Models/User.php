@@ -48,7 +48,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function siswa(){
-        return $this->belongsTo(DataSiswa::class, 'id_siswa');
+    public function calonSiswa(){
+        return $this->hasOne(CalonSiswa::class);
+    }
+    public function dataSiswa(){
+        return $this->hasOne(DataSiswa::class);
     }
 }
