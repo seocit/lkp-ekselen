@@ -16,11 +16,11 @@
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-xl font-semibold">Daftar Materi</h1>
         @can('manage_materi')
-        {{-- Button Tambah Materi --}}
-        <a href="{{ route('materi.create') }}"
-           class="bg-purple-300 text-purple-900 font-semibold px-4 py-2 rounded-full hover:bg-purple-400 transition">
-            + Tambah Materi
-        </a>           
+            {{-- Button Tambah Materi --}}
+            <a href="{{ route('materi.create') }}"
+            class="bg-purple-300 text-purple-900 font-semibold px-4 py-2 rounded-full hover:bg-purple-400 transition">
+                + Tambah Materi
+            </a>           
         @endcan
     </div>
 

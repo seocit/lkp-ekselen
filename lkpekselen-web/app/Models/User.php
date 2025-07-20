@@ -51,7 +51,12 @@ class User extends Authenticatable
     public function calonSiswa(){
         return $this->hasOne(CalonSiswa::class);
     }
-    public function dataSiswa(){
-        return $this->hasOne(DataSiswa::class);
+    public function dataSiswa()
+    {
+        return $this->belongsTo(DataSiswa::class, 'id_siswa');
+    }
+    public function tagihan()
+    {
+        return $this->hasMany(Tagihan::class, 'user_id');
     }
 }

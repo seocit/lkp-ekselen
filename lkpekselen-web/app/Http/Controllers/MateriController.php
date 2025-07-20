@@ -15,128 +15,77 @@ use Illuminate\Support\Facades\Storage;
 class MateriController extends Controller
 {
     public function index(Request $request)
-{
-    $user = auth()->user(); // Ambil user login
+    {
+        $user = auth()->user(); // Ambil user login
 
-    $searchTerm = $request->input('search');
-    $selectedKelasId = $request->input('kelas');
+        $searchTerm = $request->input('search');
+        $selectedKelasId = $request->input('kelas');
 
-    // Ambil semua kelas + kategori + program (untuk dropdown filter)
-    $kelas_program = KelasProgram::with(['kategori', 'program'])
-        ->get()
-        ->map(function ($kelas) {
-            $kelas->label_unik = $kelas->nama_kelas . ($kelas->kategori ? ' - ' . $kelas->kategori->nama_kategori : '');
-            return $kelas;
-        })
-        ->unique('label_unik')
-        ->values();
+        // Ambil semua kelas + kategori + program (untuk dropdown filter)
+        $kelas_program = KelasProgram::with(['kategori', 'program'])
+            ->get()
+            ->map(function ($kelas) {
+                $kelas->label_unik = $kelas->nama_kelas . ($kelas->kategori ? ' - ' . $kelas->kategori->nama_kategori : '');
+                return $kelas;
+            })
+            ->unique('label_unik')
+            ->values();
 
-    // 🔐 Jika user adalah siswa
-    if ($user->hasRole('siswa')) {
-        // Ambil ID kelas siswa (pastikan relasi `calonSiswa.kelas_choice` tersedia)
-        $idKelasSiswa = optional($user->calonSiswa->kelas_choice)->id;
+        //  Jika user adalah siswa
+        if ($user->hasRole('siswa')) {
+            // Ambil ID kelas siswa (pastikan relasi `calonSiswa.kelas_choice` tersedia)
+            $idKelasSiswa = optional($user->calonSiswa->kelas_choice)->id;
 
-        // Cegah akses ke kelas lain
-        if ($selectedKelasId && $selectedKelasId != $idKelasSiswa) {
-            abort(403, 'Anda tidak memiliki akses ke kelas ini.');
+            // Cegah akses ke kelas lain
+            if ($selectedKelasId && $selectedKelasId != $idKelasSiswa) {
+                abort(403, 'Anda tidak memiliki akses ke kelas ini.');
+            }
+
+            $query = Materi::with('kelas')
+                ->where('id_kelas', $idKelasSiswa);
+
+            if ($searchTerm) {
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('nama_materi', 'like', "%$searchTerm%")
+                    ->orWhere('deskripsi', 'like', "%$searchTerm%");
+                });
+            }
+
+            $materi = $query->get();
+            $selectedKelasId = $idKelasSiswa;
         }
 
-        $query = Materi::with('kelas')
-            ->where('id_kelas', $idKelasSiswa);
+        // Jika user adalah admin
+        else {
+            $query = Materi::with('kelas');
 
-        if ($searchTerm) {
-            $query->where(function ($q) use ($searchTerm) {
-                $q->where('nama_materi', 'like', "%$searchTerm%")
-                  ->orWhere('deskripsi', 'like', "%$searchTerm%");
-            });
+            if ($selectedKelasId) {
+                $query->where('id_kelas', $selectedKelasId);
+            }
+
+            if ($searchTerm) {
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('nama_materi', 'like', "%$searchTerm%")
+                    ->orWhere('deskripsi', 'like', "%$searchTerm%")
+                    ->orWhereHas('kelas', function ($kelasQuery) use ($searchTerm) {
+                        $kelasQuery->where('nama_kelas', 'like', "%$searchTerm%");
+                    });
+                });
+            }
+
+            $materi = $query->get();
         }
 
-        $materi = $query->get();
-        $selectedKelasId = $idKelasSiswa;
+        return view('dashboard.materi_kelas.index', [
+            'materi' => $materi,
+            'kelas_program' => $kelas_program,
+            'selectedKelasId' => $selectedKelasId,
+        ]);
     }
 
-    // 🧑‍💼 Jika user adalah admin
-    else {
-        $query = Materi::with('kelas');
-
-        if ($selectedKelasId) {
-            $query->where('id_kelas', $selectedKelasId);
-        }
-
-        if ($searchTerm) {
-            $query->where(function ($q) use ($searchTerm) {
-                $q->where('nama_materi', 'like', "%$searchTerm%")
-                  ->orWhere('deskripsi', 'like', "%$searchTerm%")
-                  ->orWhereHas('kelas', function ($kelasQuery) use ($searchTerm) {
-                      $kelasQuery->where('nama_kelas', 'like', "%$searchTerm%");
-                  });
-            });
-        }
-
-        $materi = $query->get();
-    }
-
-    return view('dashboard.materi_kelas.index', [
-        'materi' => $materi,
-        'kelas_program' => $kelas_program,
-        'selectedKelasId' => $selectedKelasId,
-    ]);
-}
 
 
-    // public function index(Request $request)
-    // {
-    //     // Ambil semua kelas + kategori dan program (kalau perlu)
-    //     $kelas_program = KelasProgram::with(['kategori', 'program'])
-    //     ->get()
-    //     ->map(function ($kelas) {
-    //         // Tambahkan label unik: nama_kelas - kategori
-    //         $kelas->label_unik = $kelas->nama_kelas . ($kelas->kategori ? ' - ' . $kelas->kategori->nama_kategori : '');
-    //         return $kelas;
-    //     });
-
-    //     // Buat unik berdasarkan label unik
-    //     $kelas_program = $kelas_program->unique('label_unik')->values();
-
-    //     $selectedKelasId = $request->input('kelas');
-
-    //     $materi = Materi::with('kelas')
-    //         ->when($selectedKelasId, function ($query) use ($selectedKelasId) {
-    //             $query->where('id_kelas', $selectedKelasId);
-    //         })
-    //         ->get();
-
-    //     return view('dashboard.materi_kelas.index', [
-    //         'materi' => $materi,
-    //         'kelas_program' => $kelas_program,
-    //         'selectedKelasId' => $selectedKelasId,
-    //     ]);
-    // }
-
-    // public function index()
-    // {
-    //     $user = Auth::user();
-
-    //     // Jika user adalah admin, tampilkan semua materi
-    //     if ($user->hasRole('admin')) {
-    //         $materis = Materi::with('kelas')->get();
-    //     }
-    //     // Jika user adalah siswa, tampilkan materi sesuai kelasnya
-    //     elseif ($user->hasRole('siswa')) {
-    //         if (!$user->calonSiswa || !$user->calonSiswa->id_kelas) {
-    //             return redirect()->back()->with('error', 'Anda belum terdaftar dalam kelas.');
-    //         }
-
-    //         $idKelas = $user->calonSiswa->id_kelas;
-    //         $materi = Materi::with('kelas')->where('id_kelas', $idKelas)->get();
-    //     }
-    //     // Jika bukan admin/siswa, tolak akses
-    //     else {
-    //         abort(403, 'Anda tidak memiliki izin untuk mengakses materi.');
-    //     }
-
-    //     return view('dashboard.materi_kelas.index', compact('materi'));
-    // }
+   
 
 
 

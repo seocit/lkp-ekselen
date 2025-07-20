@@ -36,6 +36,11 @@ class PembayaranTransfer extends Model
         return $this->belongsTo(CalonSiswa::class, 'id_refrensi', 'id');
     }
 
+    public function tagihan()
+    {
+        return $this->belongsTo(Tagihan::class, 'id_tagihan', 'id');
+    }
+
 
    
 }

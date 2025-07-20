@@ -1,0 +1,100 @@
+@extends('layout.app-2')
+
+@section('title', 'Tagihan Saya')
+
+@section('content')
+  <div class="max-w-7xl mx-auto px-6 py-8">
+      <h1 class="text-2xl font-semibold mb-6">Tagihan Saya</h1>
+
+      {{-- Tabel Tagihan Aktif --}}
+      <div class="mb-10">
+          <h2 class="text-lg font-semibold mb-4">Tagihan Aktif</h2>
+          <div class="overflow-x-auto bg-white rounded shadow">
+              <table class="min-w-full text-sm text-center text-gray-700">
+                  <thead class="bg-gray-100 text-xs uppercase text-gray-600">
+                      <tr>
+                          
+                          <th class="px-6 py-3">No Tagihan</th>
+                          <th class="px-6 py-3">Tanggal</th>
+                          <th class="px-6 py-3">Jatuh Tempo</th>
+                          <th class="px-6 py-3">Jumlah</th>
+                          <th class="px-6 py-3">Status</th>
+                          <th class="px-6 py-3">Aksi</th>
+                      </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200 bg-white">
+                      @forelse ($tagihanAktif as $index => $tagihan)
+                      <tr>
+                          
+                          <td class="px-6 py-4">{{ $tagihan->no_tagihan }}</td>
+                          <td class="px-6 py-4">{{ \Carbon\Carbon::parse($tagihan->tanggal)->format('d M Y') }}</td>
+                          <td class="px-6 py-4">{{ \Carbon\Carbon::parse($tagihan->jatuh_tempo)->format('d M Y') }}</td>
+                          <td class="px-6 py-4">Rp{{ number_format($tagihan->jumlah, 0, ',', '.') }}</td>
+                          <td class="px-6 py-4">
+                              <span class="{{ $tagihan->badge_color }} px-2 py-1 rounded text-xs">
+                                  {{ $tagihan->badge_label }}
+                              </span>
+                          </td>
+                            <td class="px-6 py-4">
+                                @if ($tagihan->status == 'pending')
+                                <a href="{{ route('pembayaran_spp', $tagihan->id) }}" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">Bayar</a>
+                                @else
+                                <span class="text-gray-400 text-sm">-</span>
+                                @endif
+                      </tr>
+                      @empty
+                      <tr>
+                          <td colspan="6" class="text-center py-4 text-gray-500">Tidak ada tagihan aktif.</td>
+                      </tr>
+                      @endforelse
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+      {{-- Tabel Riwayat Pembayaran --}}
+      <div>
+          <h2 class="text-lg font-semibold mb-4">Riwayat Pembayaran</h2>
+          <div class="overflow-x-auto bg-white rounded shadow">
+              <table class="min-w-full text-sm text-center text-gray-700">
+                  <thead class="bg-gray-100 text-xs uppercase text-gray-600">
+                      <tr>
+                          <th class="px-6 py-3">No</th>
+                          <th class="px-6 py-3">No Tagihan</th>
+                          <th class="px-6 py-3">Tanggal</th>
+                          <th class="px-6 py-3">Jumlah</th>
+                          <th class="px-6 py-3">Status</th>
+                          <th class="px-6 py-3">Bukti</th>
+                      </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200 bg-white">
+                      @forelse ($riwayatPembayaran as $index => $riwayat)
+                      <tr>
+                          <td class="px-6 py-4">{{ $index + 1 }}</td>
+                          <td class="px-6 py-4">{{ $riwayat->no_tagihan }}</td>
+                          <td class="px-6 py-4">{{ \Carbon\Carbon::parse($riwayat->tanggal)->format('d M Y') }}</td>
+                          <td class="px-6 py-4">{{ \Carbon\Carbon::parse($riwayat->jatuh_tempo)->format('d M Y') }}</td>
+                          <td class="px-6 py-4">
+                              <span class="{{ $riwayat->badge_color }} px-2 py-1 rounded text-xs">
+                                  {{ $item->badge_label }}
+                              </span>
+                          </td>
+                          <td class="px-6 py-4">
+                              @if ($riwayat->bukti_transfer)
+                              <a href="{{ asset('storage/' . $riwayat->bukti_transfer) }}" target="_blank" class="text-blue-600 hover:underline text-sm">Lihat</a>
+                              @else
+                              <span class="text-gray-400 text-sm">-</span>
+                              @endif
+                          </td>
+                      </tr>
+                      @empty
+                      <tr>
+                          <td colspan="6" class="text-center py-4 text-gray-500">Belum ada riwayat pembayaran.</td>
+                      </tr>
+                      @endforelse
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+@endsection

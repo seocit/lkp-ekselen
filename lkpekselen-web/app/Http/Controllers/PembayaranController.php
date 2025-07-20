@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use auth;
-use App\Models\Materi;
+
 use App\Models\CalonSiswa;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\PembayaranTransfer;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
+
 
 
 class PembayaranController extends Controller
@@ -59,33 +59,26 @@ class PembayaranController extends Controller
         // Ambil data kelas
         $kelas = $siswa->calonSiswa->kelas_choice;
 
-        return view('dashboard.pembayaran_spp', [
+        return view('dashboard.pembayaran_siswa.pembayaran_spp', [
             'pendaftar' => $siswa->calonSiswa,
             'kelas' => $kelas,
         ]);
     }
 
+
     public function storeSpp(Request $request)
     {
         $request->validate([
-            // Hapus 'tipe_pembayaran' dari validasi karena kita akan set secara manual
             'id_refrensi' => 'required|uuid',
             'bukti_transfer' => 'required|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // $filename = now()->format('Y-m') . '_' . Str::random(8) . '.' . $request->file('bukti_transfer')->getClientOriginalExtension();
-        // $path = $request->file('bukti_transfer')->storeAs('bukti_transfer', $filename, 'public');
-        // dd($request->all());
-
         $bukti = $request->file('bukti_transfer');
-        $filename = date('Y-m-d').$bukti->getClientOriginalName();
-        $path = 'bukti_transfer/'.$filename;
-
-
-        Storage::disk('public')->put($path, file_get_contents($bukti));
+        $filename = date('Y-m-d') . '_' . Str::random(8) . '.' . $bukti->getClientOriginalExtension();
+        $path = $bukti->storeAs('bukti_transfer', $filename, 'public'); // ✅ Aman
 
         PembayaranTransfer::create([
-            'tipe_pembayaran' => 'spp', // <-- Diset langsung di sini
+            'tipe_pembayaran' => 'spp',
             'id_refrensi' => $request->id_refrensi,
             'bukti_transfer' => $path,
             'status_verifikasi' => 'pending',
@@ -94,17 +87,27 @@ class PembayaranController extends Controller
         return redirect()->back()->with('success', 'Bukti pembayaran SPP berhasil diunggah. Tunggu verifikasi dari admin.');
     }
 
+    
+
     public function download($id)
     {
         $pembayaran = PembayaranTransfer::findOrFail($id);
+        $filePath = $pembayaran->bukti_transfer; // contoh: 'bukti_transfer/foto.jpg'
+        $fullPath = storage_path('app/public/' . $filePath);
 
-        $filePath = $pembayaran->bukti_transfer;
-
-        if (!Storage::disk('public')->exists($filePath)) {
+        if (!file_exists($fullPath)) {
             return back()->with('error', 'File tidak ditemukan.');
         }
 
-        return response()->download(storage_path('app/public/' . $filePath));
+        // Solusi untuk kasus file corrupt
+        if (ob_get_level()) {
+            ob_end_clean(); // Matikan output buffering
+        }
+
+        return response()->download($fullPath, basename($fullPath), [
+            'Content-Type' => mime_content_type($fullPath),
+            'Content-Length' => filesize($fullPath),
+        ])->deleteFileAfterSend(false);
     }
     
     public function view($id)
@@ -124,7 +127,7 @@ class PembayaranController extends Controller
     public function showPembayaran()
     {         
         $pembayarans = PembayaranTransfer::with(['calonSiswa.kelas_choice'])->latest()->get();        
-        return view('dashboard.bukti_pembayaran', compact('pembayarans'));
+        return view('dashboard.pembayaran.bukti_pembayaran', compact('pembayarans'));
     }
 
 }

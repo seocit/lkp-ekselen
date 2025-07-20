@@ -1,16 +1,17 @@
-    <?php
+<?php
 
-    use App\Http\Controllers\Auth\RegisterController;
-    use App\Http\Controllers\CalonSiswaController;
-use App\Http\Controllers\DataSiswaController;
+use App\Http\Middleware\IsAdmin;
+
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\MateriController;
-    use App\Http\Controllers\PembayaranController;
-    use App\Http\Controllers\PengumumanController;
-    use App\Http\Controllers\ProfileController;
-    use App\Http\Middleware\IsAdmin;
-use App\Models\PembayaranTransfer;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\DataSiswaController;
+use App\Http\Controllers\CalonSiswaController;
+use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PengumumanController;
+
 
     Route::get('/', function () {
         return view('frontend.home');
@@ -83,10 +84,17 @@ use Illuminate\Support\Facades\Route;
 
         //pembayaran spp
         
-        Route::get('/pembayaran', [PembayaranController::class, 'indexSpp'])->name('pembayaran_spp');
-        Route::post('/pembayaran/store', [PembayaranController::class, 'storeSpp'])->name('pembayaran.spp.store');
+        Route::middleware(['auth'])->group(function () {
+            // Halaman daftar tagihan untuk siswa
+            Route::get('/siswa/tagihan', [TagihanController::class, 'tagihanSiswa'])->name('siswa.tagihan');
 
-   
+            // Halaman form pembayaran SPP
+            Route::get('/siswa/pembayaran', [PembayaranController::class, 'indexSpp'])->name('pembayaran_spp');
+
+            // Proses simpan pembayaran SPP
+            Route::post('/siswa/pembayaran', [PembayaranController::class, 'storeSpp'])->name('pembayaran.spp.store');
+        });
+        
         //pembayaran spp end
 
         //data calon siswa
@@ -105,6 +113,9 @@ use Illuminate\Support\Facades\Route;
         Route::get('/download/{id}', [PembayaranController::class, 'download'])->name('download-bukti-pembayaran')->middleware('can:view_bukti_pembayaran');
         Route::get('/pembayaran/view/{id}', [PembayaranController::class, 'view'])->name('view-bukti-pembayaran');
         
+        //kirim tagihan
+        Route::get('/tagihan/create', [TagihanController::class, 'kirimTagihan'])->name('tagihan.create');
+        Route::post('/tagihan/kirim/{id}', [TagihanController::class, 'storeTagihan'])->name('tagihan.kirim');
         //bukti pembayaran siswa end
         
         //tambah siswa admin
@@ -121,11 +132,11 @@ use Illuminate\Support\Facades\Route;
     // });
 
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('dashboard.inbox.index');
     })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-    Route::middleware('auth')->group(function () {
+    Route::middleware('auth','role:siswa')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
