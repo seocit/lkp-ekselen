@@ -63,6 +63,8 @@ class TagihanController extends Controller
     }
 
 
+   
+
     // public function storeTagihan(Request $request, $id)
     // {
     //     $tanggal = now();
@@ -78,139 +80,132 @@ class TagihanController extends Controller
     //         return back()->with('error', 'Kelas tidak ditemukan untuk siswa ini.');
     //     }
 
-    //     // Ambil harga dari kelas
+    //     // Ambil harga dari kelas (atau sesuaikan ke SPP jika ini untuk bulanan)
     //     $harga = $kelas->biaya_pendaftaran;
 
     //     // Ambil user_id
-    //     $userId = $siswa->calonSiswa->user_id ?? null;
+    //     $userId = $calon->user_id ?? null;
 
     //     if (!$userId) {
     //         return back()->with('error', 'User ID tidak ditemukan.');
     //     }
 
-    //     // Cegah duplikasi tagihan bulan ini
+    //     // Cek apakah sudah ada tagihan untuk bulan ini
     //     $existing = Tagihan::where('user_id', $userId)
     //         ->whereMonth('tanggal', $tanggal->month)
     //         ->whereYear('tanggal', $tanggal->year)
-    //         ->first();
+    //         ->exists();
 
     //     if ($existing) {
-    //         return back()->with('warning', 'Tagihan bulan ini sudah dibuat.');
+    //         return back()->with('warning', 'Tagihan bulan ini sudah dibuat sebelumnya.');
     //     }
 
-    //     // Buat no_tagihan unik
+    //     // Buat nomor tagihan unik
     //     $noTagihan = 'INV-' . $tanggal->format('Ym') . '-' . strtoupper(Str::random(6));
 
-    //     // dd([
-    //     //     'id' => Str::uuid(),
-    //     //     'no_tagihan' => $noTagihan,
-    //     //     'user_id' => $userId,
-    //     //     'tanggal' => $tanggal,
-    //     //     'jatuh_tempo' => $jatuhTempo,
-    //     //     'status' => 'belum_dibayar',
-    //     //     'jumlah' => $harga,
-    //     // ]);
-    //             // Simpan tagihan
+    //     // Simpan tagihan
     //     Tagihan::create([
     //         'id' => Str::uuid(),
     //         'no_tagihan' => $noTagihan,
     //         'user_id' => $userId,
     //         'tanggal' => $tanggal,
     //         'jatuh_tempo' => $jatuhTempo,
-    //         'status' => 'pending',
+    //         'status' => 'pending', // bisa juga 'belum_dibayar' jika itu standar kamu
     //         'jumlah' => $harga,
     //     ]);
 
     //     return back()->with('success', 'Tagihan berhasil dikirim.');
     // }
 
-    public function storeTagihan(Request $request, $id)
-    {
-        $tanggal = now();
-        $jatuhTempo = now()->addDays(10); // Atur sesuai kebijakan
+    // public function tagihanSiswa()
+    // {
+    //     $userId = auth()->id();
 
-        // Ambil data siswa + relasi lengkap
-        $siswa = DataSiswa::with('calonSiswa.kelas_choice')->where('id', $id)->firstOrFail();
-        $calon = $siswa->calonSiswa;
-        $kelas = $calon->kelas_choice;
+    //     $tagihanAktif = Tagihan::where('user_id', $userId)
+    //         ->whereIn('status', ['pending', 'terlambat'])
+    //         ->orderByDesc('tanggal')
+    //         ->get();
 
-        // Validasi jika tidak ada kelas
-        if (!$kelas) {
-            return back()->with('error', 'Kelas tidak ditemukan untuk siswa ini.');
-        }
+    //     foreach ($tagihanAktif as $tagihan) {
+    //         if ($tagihan->status === 'pending') {
+    //             $tagihan->badge_color = 'bg-yellow-100 text-yellow-800';
+    //             $tagihan->badge_label = 'Pending';
+    //         } elseif ($tagihan->status === 'terlambat') {
+    //             $tagihan->badge_color = 'bg-red-100 text-red-800';
+    //             $tagihan->badge_label = 'Terlambat';
+    //         } elseif ($tagihan->status === 'lunas') {
+    //             $tagihan->badge_color = 'bg-green-100 text-green-800';
+    //             $tagihan->badge_label = 'Lunas';
+    //         } else {
+    //             $tagihan->badge_color = 'bg-gray-100 text-gray-800';
+    //             $tagihan->badge_label = ucfirst($tagihan->status);
+    //         }
+    //     }
 
-        // Ambil harga dari kelas (atau sesuaikan ke SPP jika ini untuk bulanan)
-        $harga = $kelas->biaya_pendaftaran;
+    //     $riwayatPembayaran = Tagihan::where('user_id', $userId)
+    //         ->where('status', 'lunas')
+    //         ->orderByDesc('tanggal')
+    //         ->get();
 
-        // Ambil user_id
-        $userId = $calon->user_id ?? null;
+    //     foreach ($riwayatPembayaran as $tagihan) {
+    //         $tagihan->badge_color = 'bg-green-100 text-green-800';
+    //         $tagihan->badge_label = 'Lunas';
+    //     }
 
-        if (!$userId) {
-            return back()->with('error', 'User ID tidak ditemukan.');
-        }
-
-        // Cek apakah sudah ada tagihan untuk bulan ini
-        $existing = Tagihan::where('user_id', $userId)
-            ->whereMonth('tanggal', $tanggal->month)
-            ->whereYear('tanggal', $tanggal->year)
-            ->exists();
-
-        if ($existing) {
-            return back()->with('warning', 'Tagihan bulan ini sudah dibuat sebelumnya.');
-        }
-
-        // Buat nomor tagihan unik
-        $noTagihan = 'INV-' . $tanggal->format('Ym') . '-' . strtoupper(Str::random(6));
-
-        // Simpan tagihan
-        Tagihan::create([
-            'id' => Str::uuid(),
-            'no_tagihan' => $noTagihan,
-            'user_id' => $userId,
-            'tanggal' => $tanggal,
-            'jatuh_tempo' => $jatuhTempo,
-            'status' => 'pending', // bisa juga 'belum_dibayar' jika itu standar kamu
-            'jumlah' => $harga,
-        ]);
-
-        return back()->with('success', 'Tagihan berhasil dikirim.');
-    }
+    //     return view('dashboard.pembayaran_siswa.index', compact('tagihanAktif', 'riwayatPembayaran'));
+    // }
 
     public function tagihanSiswa()
     {
         $userId = auth()->id();
 
+        // Termasuk 'menunggu_verifikasi'
         $tagihanAktif = Tagihan::where('user_id', $userId)
-            ->whereIn('status', ['pending', 'terlambat'])
+            ->whereIn('status', ['pending', 'terlambat', 'menunggu_verifikasi'])
             ->orderByDesc('tanggal')
             ->get();
 
         foreach ($tagihanAktif as $tagihan) {
-            if ($tagihan->status === 'pending') {
-                $tagihan->badge_color = 'bg-yellow-100 text-yellow-800';
-                $tagihan->badge_label = 'Pending';
-            } elseif ($tagihan->status === 'terlambat') {
-                $tagihan->badge_color = 'bg-red-100 text-red-800';
-                $tagihan->badge_label = 'Terlambat';
-            } elseif ($tagihan->status === 'lunas') {
-                $tagihan->badge_color = 'bg-green-100 text-green-800';
-                $tagihan->badge_label = 'Lunas';
-            } else {
-                $tagihan->badge_color = 'bg-gray-100 text-gray-800';
-                $tagihan->badge_label = ucfirst($tagihan->status);
-            }
+            $this->setBadge($tagihan);
         }
 
-        $riwayatPembayaran = Tagihan::where('user_id', $userId)
+        $riwayatPembayaran = Tagihan::with('pembayaranTransfers')
+            ->where('user_id', $userId)
             ->where('status', 'lunas')
             ->orderByDesc('tanggal')
             ->get();
 
         foreach ($riwayatPembayaran as $tagihan) {
-            $tagihan->badge_color = 'bg-green-100 text-green-800';
-            $tagihan->badge_label = 'Lunas';
+            $this->setBadge($tagihan);
         }
 
         return view('dashboard.pembayaran_siswa.index', compact('tagihanAktif', 'riwayatPembayaran'));
     }
+
+    // Fungsi bantu di controller yang sama
+    private function setBadge($tagihan)
+    {
+        switch ($tagihan->status) {
+            case 'pending':
+                $tagihan->badge_color = 'bg-yellow-100 text-yellow-800';
+                $tagihan->badge_label = 'Pending';
+                break;
+            case 'terlambat':
+                $tagihan->badge_color = 'bg-red-100 text-red-800';
+                $tagihan->badge_label = 'Terlambat';
+                break;
+            case 'lunas':
+                $tagihan->badge_color = 'bg-green-100 text-green-800';
+                $tagihan->badge_label = 'Lunas';
+                break;
+            case 'menunggu_verifikasi':
+                $tagihan->badge_color = 'bg-blue-100 text-blue-800';
+                $tagihan->badge_label = 'Menunggu Verifikasi';
+                break;
+            default:
+                $tagihan->badge_color = 'bg-gray-100 text-gray-800';
+                $tagihan->badge_label = ucfirst($tagihan->status);
+        }
+    }
+
 }

@@ -20,7 +20,7 @@ class Tagihan extends Model
 
     public function pembayaranTransfers()
     {
-        return $this->hasMany(PembayaranTransfer::class, 'id_tagihan');
+        return $this->hasOne(PembayaranTransfer::class, 'id_tagihan');
     }
 
     public function user()
