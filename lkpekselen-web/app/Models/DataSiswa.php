@@ -15,15 +15,18 @@ class DataSiswa extends Model
         'status',
         'tanggal_masuk',
     ];
+    protected $casts = [
+        'tanggal_masuk' => 'date',
+    ];
 
     public function calonSiswa()
     {
         return $this->belongsTo(CalonSiswa::class, 'id_calon_siswa');
     }
 
-    
-    // public function user(){
-    //     return $this->hasOne(User::class, 'id_siswa');
-    // }
 
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id_siswa');
+    }
 }

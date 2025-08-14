@@ -18,15 +18,33 @@
             <img src="{{ asset('images/logo_ekselen-1.png') }}" alt="Logo Ekselen" class="h-10 w-10 object-contain" />
             <span class="font-semibold text-lg">YAYASAN EKSELEN HASYIM AL-BAROKAH</span>
         </div>
-        <nav class="flex items-center space-x-2">
-            <div class="relative">
-                <a href="">
-                    <img src="" alt="Profile Picture"
-                        class="w-10 h-10 rounded-full border-2 border-gray-300 hover:border-blue-500 transition">
-                </a>
-            </div>
-            <div class="text-gray-700 font-semibold">{{ Auth::user()->name }}</div>
+        <nav class="flex items-center space-x-2 mr-5 ">
+            <div class="text-gray-700 font-semibold mr-4">Hello, {{ Auth::user()->name }}!</div>
+            @php
+                function stringToColor($string)
+                {
+                    $hash = md5($string);
+                    return '#' . substr($hash, 0, 6); // hanya ambil 1 warna
+                }
 
+                $user = auth()->user();
+                $initials = collect(explode(' ', $user->name))
+                    ->map(fn($word) => strtoupper(substr($word, 0, 1)))
+                    ->join('');
+
+                $bgColor = stringToColor($user->name);
+            @endphp
+            <a href="{{ route('profile.show') }}">
+                @if ($user->profile_photo)
+                    <img src="{{ asset('storage/' . $user->profile_photo) }}"
+                        class="w-12 h-12 rounded-full object-cover" />
+                @else
+                    <div
+                        class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-200 text-gray-700 font-bold">
+                        {{ $initials }}
+                    </div>
+                @endif
+            </a>
         </nav>
     </header>
 
@@ -34,6 +52,17 @@
         <aside class="w-56 bg-purple-50 border-r border-gray-300 p-4 flex flex-col">
             <h2 class="text-gray-700 font-semibold mb-4">Menu</h2>
             <nav class="flex flex-col space-y-2 text-gray-700 text-sm">
+                <a href="{{ route('profile.show') }}"
+                    class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                    </svg>
+
+                    <span>Profil</span>
+                    {{-- <span class="ml-auto bg-gray-300 rounded-full px-2 text-xs">6</span> --}}
+                </a>
                 <a href="{{ route('pengumuman.index') }}"
                     class="flex items-center space-x-2 hover:bg-purple-200 rounded-md px-3 py-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -109,10 +138,16 @@
                 </a>                    
                 @endcan --}}
             </nav>
-            <form method="POST" action="{{ route('logout') }}" class="mt-auto p-4 text-center">
+            <form method="POST" action="{{ route('logout') }}" class="mt-auto p-4 text-center flex justify-center">
                 @csrf
-                <button type="submit" class="text-gray-700 hover:text-blue-500 ">
-                    Logout
+
+                <button type="submit" class="text-gray-700 hover:text-blue-500  flex justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+                    </svg>
+                    <strong class="ml-2">Logout</strong>
                 </button>
             </form>
         </aside>

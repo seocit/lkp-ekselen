@@ -121,7 +121,7 @@ Route::middleware(['auth'])->group(function () {
 
     //kirim tagihan
     Route::get('/tagihan/create', [TagihanController::class, 'kirimTagihan'])->name('tagihan.create');
-    Route::post('/tagihan/kirim/{id}', [TagihanController::class, 'storeTagihan'])->name('tagihan.kirim');
+    Route::post('/tagihan/kirim/{id}', [TagihanController::class, 'kirimTagihan'])->name('tagihan.kirim');
     //bukti pembayaran siswa end
 
     //tambah siswa admin
@@ -129,7 +129,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tambah-siswa', [CalonSiswaController::class, 'storeFromAdmin'])->name('tambah-siswa.store')->middleware('can:view_tambah_siswa');
     // tambah siswa admin end
 
-
+    // Profile page
+    route::get('/my-profile', [ProfileController::class, 'show'])->name('profile.show');
 });
 
 
@@ -142,7 +143,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::middleware('auth', 'role:siswa')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
